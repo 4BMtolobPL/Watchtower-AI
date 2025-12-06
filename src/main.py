@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -41,9 +43,19 @@ def create_app(env: str = "development"):
 
     # from src.domains.user.views import user_views
     # from src.domains.auth.views import auth_views
+    from src.domains.file.views import file_views
 
     app.register_blueprint(root_views, url_prefix="/")
     # app.register_blueprint(user_views, url_prefix="/user")
     # app.register_blueprint(auth_views, url_prefix="/auth")
+    app.register_blueprint(file_views, url_prefix="/file")
+
+    init_upload_folder(app)
 
     return app
+
+
+def init_upload_folder(app: Flask):
+    upload_folder = app.config["UPLOAD_FOLDER"]
+    if not os.path.isdir(upload_folder):
+        os.makedirs(upload_folder)

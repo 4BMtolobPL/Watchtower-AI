@@ -11,7 +11,9 @@ dependencies = [
     "flask-security[common,fsqla]>=5.7.1",
     "flask-sqlalchemy>=3.1.1",
     "flask-wtf>=1.2.2",
+    "pillow>=12.0.0",
     "python-dotenv>=1.2.1",
+    "ultralytics>=8.3.235",
 ]
 
 [dependency-groups]

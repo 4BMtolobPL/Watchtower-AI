@@ -1,10 +1,14 @@
+from typing import List
+
 from flask_security.models import fsqla_v3
+from sqlalchemy.orm import Mapped, relationship
 
 from src.main import login_manager, db
 
 
 class User(db.Model, fsqla_v3.FsUserMixin):
-    pass
+    images: Mapped[List["UserImage"]] = relationship(back_populates="user")
+    videos: Mapped[List["UserVideo"]] = relationship(back_populates="user")
     # id: Mapped[int] = mapped_column(primary_key=True)
     # # username: Mapped[str] = mapped_column(index=True)
     # email: Mapped[str] = mapped_column(unique=True, nullable=False)
