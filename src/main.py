@@ -52,12 +52,13 @@ def create_app(env: str = "development"):
     app.register_blueprint(file_views, url_prefix="/file")
     app.register_blueprint(detect_views, url_prefix="/detect")
 
-    init_upload_folder(app)
+    init_folder(app, "UPLOAD_FOLDER")
+    init_folder(app, "MODELS_FOLDER")
 
     return app
 
 
-def init_upload_folder(app: Flask):
-    upload_folder = app.config["UPLOAD_FOLDER"]
+def init_folder(app: Flask, config_name: str):
+    upload_folder = app.config[config_name]
     if not os.path.isdir(upload_folder):
         os.makedirs(upload_folder)

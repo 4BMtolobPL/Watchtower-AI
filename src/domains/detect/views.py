@@ -37,8 +37,11 @@ def detect_images():
         )
         file.save(image_path)
 
-        model = YOLO("models/fire_detection_v251205_1.pt", verbose=False)
-        results = model(image_path)
+        model = YOLO(
+            Path(current_app.config["MODELS_FOLDER"], "fire_detect_v251205_1.pt"),
+            verbose=False,
+        )
+        results = model(image_path, conf=0.5, verbose=False)
 
         # for result in results:
         #     boxes = result.boxes  # Boxes object for bounding box outputs

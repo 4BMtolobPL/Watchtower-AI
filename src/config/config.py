@@ -21,6 +21,7 @@ class DevelopmentConfig(BaseConfig):
     SECURITY_SEND_REGISTER_EMAIL = False
     SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT")
     UPLOAD_FOLDER = str(Path(basedir, os.environ.get("UPLOAD_FOLDER")))
+    MODELS_FOLDER = str(Path(basedir, os.environ.get("MODELS_FOLDER")))
 
 
 config = {
