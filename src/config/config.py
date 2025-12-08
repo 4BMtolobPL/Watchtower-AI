@@ -14,7 +14,7 @@ class BaseConfig(Config):
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = f"sqlite:///local.sqlite"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SECRET_KEY = os.environ.get("SECRET_KEY")
     WTF_CSRF_SECRET_KEY = os.environ.get("WTF_CSRF_SECRET_KEY")
     SECURITY_REGISTERABLE = True
