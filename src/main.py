@@ -43,13 +43,11 @@ def create_app(env: str = "development"):
 
     # from src.domains.user.views import user_views
     # from src.domains.auth.views import auth_views
-    from src.domains.file.views import file_views
     from src.domains.detect.views import detect_views
 
     app.register_blueprint(root_views, url_prefix="/")
     # app.register_blueprint(user_views, url_prefix="/user")
     # app.register_blueprint(auth_views, url_prefix="/auth")
-    app.register_blueprint(file_views, url_prefix="/file")
     app.register_blueprint(detect_views, url_prefix="/detect")
 
     init_folder(app, "UPLOAD_FOLDER")
