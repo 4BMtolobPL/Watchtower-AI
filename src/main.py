@@ -15,7 +15,7 @@ migrate = Migrate()
 csrf = CSRFProtect()
 security = Security()
 login_manager = LoginManager()
-login_manager.login_view = "auth.login"
+login_manager.login_view = "security.login"
 login_manager.login_message = ""
 
 
