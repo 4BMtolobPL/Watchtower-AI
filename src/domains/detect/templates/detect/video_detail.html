@@ -6,6 +6,19 @@
         <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
     </div>
     <div class="col">
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {{ form.csrf_token }}
+            {{ form.video_id() }}
+            {% for message in get_flashed_messages() %}
+                <span class="dt-auth-flash">{{ message }}</span>
+            {% endfor %}
+            <div>
+                {{ form.model(class="form-control") }}
+            </div>
+            <div>
+                <label>{{ form.submit(class="btn btn-primary") }}</label>
+            </div>
+        </form>
         <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
     </div>
 </div>

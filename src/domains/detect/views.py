@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import List
 
 import cv2
+from celery import shared_task
 from flask import (
     Blueprint,
     render_template,
@@ -13,8 +14,9 @@ from flask import (
 )
 from flask_login import current_user, login_required
 
-from src.domains.detect.forms import UploadImageForm, UploadVideoForm
-from src.domains.detect.models import UserImage, UserVideo
+from src.domains.detect.detector import DetectorEnum, detector_models
+from src.domains.detect.forms import UploadImageForm, UploadVideoForm, DetectVideoForm
+from src.domains.detect.models import UserImage, UserVideo, DetectionVideo
 from src.main import db
 
 detect_views = Blueprint(
@@ -116,11 +118,44 @@ def upload_video():
     return render_template("detect/upload_videos.html", form=form)
 
 
-@detect_views.route("/videos/detect/<int:video_id>")
+@detect_views.route("/videos/detect/<int:video_id>", methods=["GET", "POST"])
 def detect_videos(video_id: int):
     user_video: UserVideo = db.get_or_404(UserVideo, video_id)
+    form = DetectVideoForm()
+    form.video_id.data = user_video.id
 
-    return render_template("detect/video_detail.html", user_video=user_video)
+    if form.validate_on_submit():
+
+        selected_model = form.model.data
+        if selected_model not in [de.value for de in DetectorEnum]:
+            return "잘못된 모델입니다.", 400
+
+        dest = str(uuid.uuid4())
+
+        result = detect_videos.delay(
+            str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
+            user_video.video_path,
+            dest,
+            selected_model,
+        )
+        print(result.id)
+
+        detection_video = DetectionVideo(
+            model=selected_model,
+            video_path=f"{dest}.mp4",
+            user_video_id=user_video.id,
+        )
+        db.session.add(detection_video)
+        db.session.commit()
+
+        # return result.id
+        return render_template(
+            "detect/video_detail.html", user_video=user_video, form=form
+        )
+
+    form.model.data = DetectorEnum.FireDetectV1.value
+
+    return render_template("detect/video_detail.html", user_video=user_video, form=form)
 
 
 def extract_thumbnail(video_path: Path) -> str | None:
@@ -139,6 +174,34 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
     cap.release()
     return thumbnail_name
+
+
+@shared_task(ignore_result=False)
+def detect_videos(base_path: str, src: str, dest_name: str, selected_model: str):
+    print(f"Detecting videos: {src}")
+
+    detector = detector_models[DetectorEnum(selected_model)]()
+
+    cap = cv2.VideoCapture(str(Path(base_path) / src))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter.fourcc(*"avc1")
+    out = cv2.VideoWriter(f"{base_path}/{dest_name}.mp4", fourcc, fps, (width, height))
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        results = detector.detect(frame, conf=0.5, verbose=False)
+        out.write(results[0].plot())
+
+    cap.release()
+    out.release()
+    print(f"End detecting videos: {dest_name}.mp4")
 
 
 # @detect_views.route("/images", methods=["GET", "POST"])

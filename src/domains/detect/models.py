@@ -1,4 +1,5 @@
 import datetime
+from typing import List
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -43,3 +44,16 @@ class UserVideo(db.Model):
     user: Mapped["User"] = relationship(
         back_populates="videos"
     )  # noqa: F821  # ty:ignore[unresolved-reference]
+
+    detection_videos: Mapped[List["DetectionVideo"]] = relationship(
+        back_populates="user_video"
+    )
+
+
+class DetectionVideo(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    model: Mapped[str] = mapped_column()
+    video_path: Mapped[str] = mapped_column()
+
+    user_video_id: Mapped[int] = mapped_column(ForeignKey("user_video.id"))
+    user_video: Mapped["UserVideo"] = relationship(back_populates="detection_videos")

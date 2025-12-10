@@ -1,6 +1,9 @@
+from src.domains.detect.detector import DetectorEnum
+from wtforms import SelectField
+from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms.fields.simple import SubmitField
+from wtforms.fields.simple import SubmitField, HiddenField
 
 
 class UploadImageForm(FlaskForm):
@@ -13,11 +16,6 @@ class UploadImageForm(FlaskForm):
             ),
         ]
     )
-    # model = SelectField(
-    #     "모델 선택",
-    #     choices=[(de.value, de.name) for de in DetectorEnum],
-    #     default=DetectorEnum.FireDetectV1,
-    # )
     submit = SubmitField("탐지")
 
 
@@ -28,9 +26,14 @@ class UploadVideoForm(FlaskForm):
             FileAllowed(["mp4", "avi", "mkv"], "지원하지 않는 파일입니다."),
         ]
     )
-    # model = SelectField(
-    #     "모델 선택",
-    #     choices=[(de.value, de.name) for de in DetectorEnum],
-    #     default=DetectorEnum.FireDetectV1,
-    # )
     submit = SubmitField("Upload")
+
+
+class DetectVideoForm(FlaskForm):
+    video_id = HiddenField(validators=[DataRequired()])
+    model = SelectField(
+        "모델 선택",
+        choices=[(de.value, de.name) for de in DetectorEnum],
+        default=DetectorEnum.FireDetectV1,
+    )
+    submit = SubmitField("탐지")

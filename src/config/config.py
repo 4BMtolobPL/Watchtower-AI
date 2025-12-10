@@ -1,8 +1,10 @@
 import os
 from pathlib import Path
 
+import dotenv
 from flask import Config
 
+dotenv.load_dotenv()
 basedir = Path(__file__).resolve().parent.parent.parent
 
 
@@ -22,6 +24,12 @@ class DevelopmentConfig(BaseConfig):
     SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT")
     UPLOAD_FOLDER = str(Path(basedir, os.environ.get("UPLOAD_FOLDER", "uploads")))
     MODELS_FOLDER = str(Path(basedir, os.environ.get("MODELS_FOLDER", "models")))
+
+    CELERY = dict(
+        broker_url=os.environ.get("CELERY_BROKER_URL"),
+        result_backend=os.environ.get("CELERY_RESULT_BACKEND"),
+        task_ignore_result=True,
+    )
 
 
 config = {
