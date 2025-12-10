@@ -1,5 +1,71 @@
 {% extends "root/base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}Watchtower{% endblock %}
+
 {% block content %}
-메인 페이지
+<style>
+
+    @keyframes fadeUp {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -40%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+     @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .main-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 42px;
+        font-weight: 300;
+        color: white;
+        text-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        animation: fadeUp 1.5s ease-out;
+        font-family: 'Pretendard', sans-serif;
+    }
+     .sub-title {
+        position: absolute;
+        top: 59%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 80px;
+        color: white;
+        opacity: 0;
+        animation: fadeIn 1.5s ease-out forwards;
+        animation-delay: 1.2s;
+        text-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 600;
+    }
+
+</style>
+
+<video id="bg-video" autoplay muted loop>
+    <source src="{{ url_for('static', filename='City2.mp4') }}" type="video/mp4">
+</video>
+
+    <div class="video-overlay"></div>
+
+    <div class="main-title">교통 이상 징후 감지 시스템</div>
+    <div class="sub-title">WatchTower-AI</div>
+</div>
 {% endblock %}
