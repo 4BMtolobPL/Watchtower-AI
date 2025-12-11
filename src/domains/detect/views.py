@@ -26,7 +26,7 @@ detect_views = Blueprint(
 
 @detect_views.get("/images")
 def image_dashboard():
-    user_images: List[UserImage] = UserImage.query.all()
+    user_images: List[UserImage] = UserImage.query.order_by(UserImage.id.desc()).all()
 
     return render_template("detect/image_dashboard.html", user_images=user_images)
 
@@ -70,7 +70,7 @@ def detect_images(image_id: int):
 
 @detect_views.get("/videos")
 def video_dashboard():
-    user_videos: List[UserVideo] = UserVideo.query.all()
+    user_videos: List[UserVideo] = UserVideo.query.order_by(UserVideo.id.desc()).all()
 
     return render_template("detect/video_dashboard.html", user_videos=user_videos)
 
