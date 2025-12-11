@@ -1,26 +1,27 @@
 {% extends 'detect/base.html' %}
 {% block title %}Video detail{% endblock %}
 {% block content %}
-<form method="post" enctype="multipart/form-data" id="detect_form" novalidate>
+<form enctype="multipart/form-data" id="detect_form" method="post" novalidate>
     {{ form.csrf_token }}
     {{ form.video_id() }}
     {% for message in get_flashed_messages() %}
-        <span class="dt-auth-flash">{{ message }}</span>
+    <span class="dt-auth-flash">{{ message }}</span>
     {% endfor %}
     <div>
         {{ form.model(class="form-control", id="model_select") }}
     </div>
     <div class="row row-cols-1 row-cols-xxl-2 g-3">
         <div class="col">
-            <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
+            <video class="img-fluid" controls
+                   src="{{ url_for('detect.videos', filename=user_video.video_path) }}"></video>
         </div>
         <div class="col">
-            <video src="" class="img-fluid" id="detected_video" controls></video>
+            <video class="img-fluid" controls id="detected_video"></video>
             <div class="spinner-border" id="detected_spinner" role="status">
-              <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Loading...</span>
             </div>
             <div class="btn-group" id="detected_buttons">
-                <button type="submit" class="btn btn-primary">탐지</button>
+                <button class="btn btn-primary" type="submit">탐지</button>
             </div>
         </div>
     </div>
@@ -85,7 +86,7 @@
 
             const status = json["status"]
             if (status === "None") {
-                change_detect_status("none")
+                change_detect_status("NONE")
             } else if (status === "Ok") {
                 const task_id = json["task_id"]
                 const video_path = json["video_path"]
@@ -95,34 +96,54 @@
         } else {
             const error = await response.json();
             console.error(error)
-            change_detect_status("none")
+            change_detect_status("NONE")
         }
     }
 
     const check_task_status = async (task_id) => {
         const response = await fetch(`{{ url_for('detect.task_result', result_id='') }}${task_id}`)
-        if (response.ok) {
-            const json = await response.json()
-            if (json["ready"] && json["successful"]) {
-                return "completed"
-            } else {
-                return "pending"
-            }
-        } else {
-            return "pending"
+
+        const json = await response.json()
+
+        const state = json.state
+        switch (state) {
+            case "PENDING":
+            case "STARTED":
+            case "RETRY":
+                return "PENDING"
+            case "FAILURE":
+                return "FAILURE"
+            case "SUCCESS":
+                return "SUCCESS"
+            default:
+                throw new Error(`Invalid task state: ", state, task_id`)
         }
     }
 
     const set_interval = async (task_id, video_path) => {
         const check = async () => {
-            const task_response = await check_task_status(task_id)
-            if (task_response === "completed") {
+            try {
+                const task_response = await check_task_status(task_id)
+                switch (task_response) {
+                    case "PENDING":
+                        change_detect_status(task_response)
+                        return false;
+                    case "FAILURE":
+                        await clear_interval()
+                        change_detect_status(task_response)
+                        return true;
+                    case "SUCCESS":
+                        await clear_interval()
+                        change_detect_status(task_response, `{{ url_for('detect.videos', filename='') }}${video_path}`)
+                        return true;
+                    default:
+                        await clear_interval()
+                        break;
+                }
+            } catch (e) {
+                console.error(e)
                 await clear_interval()
-                change_detect_status(task_response, `{{ url_for('detect.videos', filename='') }}${video_path}`)
-                return true;
-            } else if (task_response === "pending") {
-                change_detect_status(task_response)
-                return false;
+                return true
             }
         }
 
@@ -140,16 +161,20 @@
     }
 
     const change_detect_status = (status, src) => {
-        if (status === "none") {
-            detected_buttons.hidden= false
+        if (status === "NONE") {
+            detected_buttons.hidden = false
             detected_spinner.hidden = true
             detected_video.hidden = true
-        } else if (status === "pending") {
-            detected_buttons.hidden= true
+        } else if (status === "PENDING") {
+            detected_buttons.hidden = true
             detected_spinner.hidden = false
             detected_video.hidden = true
-        } else if (status === "completed") {
-            detected_buttons.hidden= true
+        } else if (status === "FAILURE") {
+            detected_buttons.hidden = false
+            detected_spinner.hidden = true
+            detected_video.hidden = true
+        } else if (status === "SUCCESS") {
+            detected_buttons.hidden = true
             detected_spinner.hidden = true
             detected_video.hidden = false
             detected_video.src = src

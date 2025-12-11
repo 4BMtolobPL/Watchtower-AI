@@ -1,4 +1,3 @@
-from src.domains.detect.detector import DetectorEnum, detector_models
 import uuid
 from pathlib import Path
 from typing import List
@@ -8,22 +7,23 @@ from celery import shared_task
 from celery.result import AsyncResult
 from flask import (
     Blueprint,
-    render_template,
     current_app,
-    send_from_directory,
-    redirect,
-    url_for,
-    request,
     jsonify,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
 )
 from flask_login import current_user, login_required
 
+from src.domains.detect.detector import DetectorEnum, detector_models
 from src.domains.detect.forms import (
+    DetectVideoForm,
     UploadImageForm,
     UploadVideoForm,
-    DetectVideoForm,
 )
-from src.domains.detect.models import UserImage, UserVideo, DetectionVideo
+from src.domains.detect.models import DetectionVideo, UserImage, UserVideo
 from src.main import db
 
 detect_views = Blueprint(
@@ -164,7 +164,6 @@ def video_detail(video_id: int):
     form.video_id.data = user_video.id
 
     if form.validate_on_submit():
-
         selected_model = form.model.data
         if selected_model not in [de.value for de in DetectorEnum]:
             return "잘못된 모델입니다.", 400
@@ -248,10 +247,22 @@ def detect_videos(base_path: str, src: str, dest_name: str, selected_model: str)
 @detect_views.get("/result/<string:result_id>")
 def task_result(result_id: str):
     result = AsyncResult(result_id)
+
+    if result.failed():
+        current_app.logger.error(f"Task failed: {result_id}\n{result.info}")
+        return (
+            jsonify(
+                {
+                    "state": result.state,
+                    "error": str(result.info),
+                }
+            ),
+            500,
+        )
+
     return jsonify(
         {
-            "ready": result.ready(),
-            "successful": result.successful(),
-            "value": result.result if result.ready() else None,
+            "state": result.state,
+            "result": result.result,
         }
     )
