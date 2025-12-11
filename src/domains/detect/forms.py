@@ -36,4 +36,3 @@ class DetectVideoForm(FlaskForm):
         choices=[(de.value, de.name) for de in DetectorEnum],
         default=DetectorEnum.FireDetectV1,
     )
-    submit = SubmitField("탐지")

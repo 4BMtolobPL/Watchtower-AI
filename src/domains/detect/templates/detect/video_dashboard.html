@@ -6,7 +6,7 @@
     {% for user_video in user_videos %}
     <div class="col">
         <div class="bg-body-secondary p-3 ratio ratio-4x3">
-            <a href="{{ url_for('detect.detect_videos', video_id=user_video.id) }}">
+            <a href="{{ url_for('detect.video_detail', video_id=user_video.id) }}">
                 <img src="{{ url_for('detect.thumbnails', thumbnail=user_video.thumbnail_path) }}" alt="이미지" class="img-thumbnail object-fit-cover w-100 h-100">
             </a>
         </div>

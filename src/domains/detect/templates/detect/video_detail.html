@@ -1,26 +1,163 @@
 {% extends 'detect/base.html' %}
 {% block title %}Video detail{% endblock %}
 {% block content %}
-<div class="row row-cols-1 row-cols-xxl-2 g-3">
-    <div class="col">
-        <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
+<form method="post" enctype="multipart/form-data" id="detect_form" novalidate>
+    {{ form.csrf_token }}
+    {{ form.video_id() }}
+    {% for message in get_flashed_messages() %}
+        <span class="dt-auth-flash">{{ message }}</span>
+    {% endfor %}
+    <div>
+        {{ form.model(class="form-control", id="model_select") }}
     </div>
-    <div class="col">
-        <form method="post" enctype="multipart/form-data" novalidate>
-            {{ form.csrf_token }}
-            {{ form.video_id() }}
-            {% for message in get_flashed_messages() %}
-                <span class="dt-auth-flash">{{ message }}</span>
-            {% endfor %}
-            <div>
-                {{ form.model(class="form-control") }}
+    <div class="row row-cols-1 row-cols-xxl-2 g-3">
+        <div class="col">
+            <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
+        </div>
+        <div class="col">
+            <video src="" class="img-fluid" id="detected_video" controls></video>
+            <div class="spinner-border" id="detected_spinner" role="status">
+              <span class="visually-hidden">Loading...</span>
             </div>
-            <div>
-                <label>{{ form.submit(class="btn btn-primary") }}</label>
+            <div class="btn-group" id="detected_buttons">
+                <button type="submit" class="btn btn-primary">탐지</button>
             </div>
-        </form>
-        <video src="{{ url_for('detect.videos', filename=user_video.video_path) }}" class="img-fluid" controls></video>
+        </div>
     </div>
-</div>
+</form>
+<script>
+    const model_select = document.getElementById('model_select');
+    const detect_form = document.getElementById('detect_form');
+    const detected_video = document.getElementById('detected_video');
+    const detected_spinner = document.getElementById('detected_spinner');
+    const detected_buttons = document.getElementById('detected_buttons');
 
+    let detect_interval = null;
+
+    model_select.addEventListener('change', (e) => {
+        model_select.value = e.target.value;
+        clear_interval()
+        check_task()
+    })
+
+    detect_form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const form_data = new FormData(detect_form)
+
+        const response = await fetch("{{ url_for('detect.video_detail', video_id=user_video.id) }}", {
+            method: 'POST',
+            headers: {
+                "X-CSRFToken": form_data.get("csrf_token"),
+            },
+            body: form_data
+        })
+
+        if (response.ok) {
+            const json = await response.json()
+            // await set_interval(json["result_id"], json["video_path"])
+            await check_task()
+        } else {
+            console.error(response)
+        }
+    })
+
+    const check_task = async () => {
+        const form = new FormData(detect_form)
+
+        const data = {
+            "video_id": "{{ user_video.id }}",
+            "model": model_select.value,
+        }
+
+        const response = await fetch("{{ url_for('detect.check_task') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRFToken": form.get("csrf_token"),
+            },
+            body: JSON.stringify(data),
+        })
+
+        if (response.ok) {
+            const json = await response.json()
+
+            const status = json["status"]
+            if (status === "None") {
+                change_detect_status("none")
+            } else if (status === "Ok") {
+                const task_id = json["task_id"]
+                const video_path = json["video_path"]
+
+                await set_interval(task_id, video_path)
+            }
+        } else {
+            const error = await response.json();
+            console.error(error)
+            change_detect_status("none")
+        }
+    }
+
+    const check_task_status = async (task_id) => {
+        const response = await fetch(`{{ url_for('detect.task_result', result_id='') }}${task_id}`)
+        if (response.ok) {
+            const json = await response.json()
+            if (json["ready"] && json["successful"]) {
+                return "completed"
+            } else {
+                return "pending"
+            }
+        } else {
+            return "pending"
+        }
+    }
+
+    const set_interval = async (task_id, video_path) => {
+        const check = async () => {
+            const task_response = await check_task_status(task_id)
+            if (task_response === "completed") {
+                await clear_interval()
+                change_detect_status(task_response, `{{ url_for('detect.videos', filename='') }}${video_path}`)
+                return true;
+            } else if (task_response === "pending") {
+                change_detect_status(task_response)
+                return false;
+            }
+        }
+
+        if (!await check()) {
+            detect_interval = setInterval(async () => {
+                await check()
+            }, 1000 * 5)
+        }
+    }
+
+    const clear_interval = async () => {
+        if (detect_interval) {
+            clearInterval(detect_interval)
+        }
+    }
+
+    const change_detect_status = (status, src) => {
+        if (status === "none") {
+            detected_buttons.hidden= false
+            detected_spinner.hidden = true
+            detected_video.hidden = true
+        } else if (status === "pending") {
+            detected_buttons.hidden= true
+            detected_spinner.hidden = false
+            detected_video.hidden = true
+        } else if (status === "completed") {
+            detected_buttons.hidden= true
+            detected_spinner.hidden = true
+            detected_video.hidden = false
+            detected_video.src = src
+        }
+    }
+
+    window.onload = () => {
+        check_task()
+    }
+</script>
 {% endblock %}

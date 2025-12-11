@@ -1,9 +1,11 @@
+from src.domains.detect.detector import DetectorEnum, detector_models
 import uuid
 from pathlib import Path
 from typing import List
 
 import cv2
 from celery import shared_task
+from celery.result import AsyncResult
 from flask import (
     Blueprint,
     render_template,
@@ -11,11 +13,16 @@ from flask import (
     send_from_directory,
     redirect,
     url_for,
+    request,
+    jsonify,
 )
 from flask_login import current_user, login_required
 
-from src.domains.detect.detector import DetectorEnum, detector_models
-from src.domains.detect.forms import UploadImageForm, UploadVideoForm, DetectVideoForm
+from src.domains.detect.forms import (
+    UploadImageForm,
+    UploadVideoForm,
+    DetectVideoForm,
+)
 from src.domains.detect.models import UserImage, UserVideo, DetectionVideo
 from src.main import db
 
@@ -82,6 +89,38 @@ def videos(filename: str):
     )
 
 
+@detect_views.post("/videos/task")
+def check_task():
+    json = request.get_json()
+
+    if not json:
+        return jsonify({"error": "No JSON data provided"}), 400
+
+    video_id = json.get("video_id")
+    model = json.get("model")
+
+    if not video_id or not model:
+        return jsonify({"error": "Missing 'video_id' or 'model'"}), 400
+
+    detection_video: DetectionVideo | None = (
+        DetectionVideo.query.filter_by(user_video_id=video_id)
+        .filter_by(model=model)
+        .order_by(DetectionVideo.id.desc())
+        .first()
+    )
+
+    if not detection_video:
+        return jsonify({"status": "None"})
+
+    return jsonify(
+        {
+            "status": "Ok",
+            "task_id": detection_video.task_id,
+            "video_path": detection_video.video_path,
+        }
+    )
+
+
 @detect_views.get("/videos/thumbnail/<path:thumbnail>")
 def thumbnails(thumbnail: str):
     return send_from_directory(
@@ -119,7 +158,7 @@ def upload_video():
 
 
 @detect_views.route("/videos/detect/<int:video_id>", methods=["GET", "POST"])
-def detect_videos(video_id: int):
+def video_detail(video_id: int):
     user_video: UserVideo = db.get_or_404(UserVideo, video_id)
     form = DetectVideoForm()
     form.video_id.data = user_video.id
@@ -138,23 +177,25 @@ def detect_videos(video_id: int):
             dest,
             selected_model,
         )
-        print(result.id)
+        current_app.logger.info(f"Task 추가: {result.id}")
 
         detection_video = DetectionVideo(
             model=selected_model,
+            task_id=result.id,
             video_path=f"{dest}.mp4",
             user_video_id=user_video.id,
         )
         db.session.add(detection_video)
         db.session.commit()
 
-        # return result.id
-        return render_template(
-            "detect/video_detail.html", user_video=user_video, form=form
+        return jsonify(
+            {
+                "result_id": detection_video.task_id,
+                "video_path": detection_video.video_path,
+            }
         )
 
     form.model.data = DetectorEnum.FireDetectV1.value
-
     return render_template("detect/video_detail.html", user_video=user_video, form=form)
 
 
@@ -178,7 +219,7 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
 @shared_task(ignore_result=False)
 def detect_videos(base_path: str, src: str, dest_name: str, selected_model: str):
-    print(f"Detecting videos: {src}")
+    current_app.logger.info(f"Detecting videos: {src}")
 
     detector = detector_models[DetectorEnum(selected_model)]()
 
@@ -201,87 +242,16 @@ def detect_videos(base_path: str, src: str, dest_name: str, selected_model: str)
 
     out.release()
     cap.release()
-    print(f"End detecting videos: {dest_name}.mp4")
+    current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
 
 
-# @detect_views.route("/images", methods=["GET", "POST"])
-# def detect_images():
-#     form = UploadImageForm()
-#     if form.validate_on_submit():
-#         file = form.image.data
-#         file_bytes = np.frombuffer(file.read(), np.uint8)
-#         img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-#
-#         selected_detector = form.model.data
-#         if selected_detector not in [de.value for de in DetectorEnum]:
-#             return "잘못된 모델입니다.", 400
-#         model = detector_models[DetectorEnum(selected_detector)]()
-#         results = model.detect(img, conf=0.5)
-#
-#         return ndarray_to_image_bytes(results[0].plot())
-#     form.model.data = DetectorEnum.FireDetectV1.value
-#     return render_template("detect/detect_images.html", form=form)
-#
-#
-# @detect_views.route("/videos", methods=["GET", "POST"])
-# def detect_videos():
-#     form = UploadVideoForm()
-#     if form.validate_on_submit():
-#         file = form.video.data
-#
-#         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
-#             tmp.write(file.read())
-#             tmp_path = tmp.name
-#
-#         cap = cv2.VideoCapture(tmp_path)
-#         fps = cap.get(cv2.CAP_PROP_FPS)
-#         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-#         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-#
-#         fourcc = cv2.VideoWriter.fourcc(*"avc1")
-#         out = cv2.VideoWriter("output.mp4", fourcc, fps, (width, height))
-#
-#         selected_detector = form.model.data
-#         if selected_detector not in [de.value for de in DetectorEnum]:
-#             return "잘못된 모델입니다.", 400
-#         model = detector_models[DetectorEnum(selected_detector)]()
-#
-#         while cap.isOpened():
-#             ret, frame = cap.read()
-#             if not ret:
-#                 break
-#
-#             results = model.detect(frame, conf=0.5, verbose=False)
-#
-#             out.write(results[0].plot())
-#
-#         cap.release()
-#         out.release()
-#
-#         return Response(generate("output.mp4"), mimetype="video/mp4")
-#
-#     form.model.data = DetectorEnum.FireDetectV1.value
-#     return render_template("detect/detect_videos.html", form=form)
-#
-#
-# def generate(filename: str):
-#     out_buffer = io.BytesIO()
-#
-#     with open(filename, "rb") as f:
-#         out_buffer.write(f.read())
-#
-#     out_buffer.seek(0)
-#     while True:
-#         data = out_buffer.read(1024 * 1024)
-#         if not data:
-#             break
-#         yield data
-#
-#
-# def ndarray_to_image_bytes(array: np.ndarray):
-#     success, encoded = cv2.imencode(".png", array)
-#     if not success:
-#         return "Encode error", 500
-#
-#     img_bytes = encoded.tobytes()
-#     return Response(img_bytes, mimetype="image/png")
+@detect_views.get("/result/<string:result_id>")
+def task_result(result_id: str):
+    result = AsyncResult(result_id)
+    return jsonify(
+        {
+            "ready": result.ready(),
+            "successful": result.successful(),
+            "value": result.result if result.ready() else None,
+        }
+    )

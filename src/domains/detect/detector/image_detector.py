@@ -1,9 +1,9 @@
 import os
 from abc import abstractmethod, ABC
-from enum import Enum
 from pathlib import Path
 
 from ultralytics import YOLO
+
 
 basedir = Path(__file__).resolve().parent.parent.parent.parent
 model_path = Path(basedir, os.environ.get("MODELS_FOLDER", "models"))
@@ -33,14 +33,3 @@ class DetectorFireDetectV1(AbstractDetector):
 
     def detect(self, src, **kwargs):
         return self.model(src, **kwargs)
-
-
-class DetectorEnum(Enum):
-    YOLO11n = "YOLO11n"
-    FireDetectV1 = "fire_detect_v1"
-
-
-detector_models = {
-    DetectorEnum.YOLO11n: DetectorYOLO,
-    DetectorEnum.FireDetectV1: DetectorFireDetectV1,
-}
