@@ -21,6 +21,10 @@ class UserImage(db.Model):
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship(back_populates="images")
 
+    detection_images: Mapped[List["DetectionImage"]] = relationship(
+        back_populates="user_image"
+    )
+
 
 class UserVideo(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -40,6 +44,15 @@ class UserVideo(db.Model):
     detection_videos: Mapped[List["DetectionVideo"]] = relationship(
         back_populates="user_video"
     )
+
+
+class DetectionImage(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    model: Mapped[str] = mapped_column()
+    image_path: Mapped[str] = mapped_column()
+
+    user_image_id: Mapped[int] = mapped_column(ForeignKey("user_image.id"))
+    user_image: Mapped["UserImage"] = relationship(back_populates="detection_images")
 
 
 class DetectionVideo(db.Model):

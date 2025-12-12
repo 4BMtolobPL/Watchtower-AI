@@ -1,13 +1,89 @@
 {% extends 'detect/base.html' %}
 {% block title %}Image detail{% endblock %}
 {% block content %}
-<div class="row row-cols-1 row-cols-xxl-2 g-3">
-    <div class="col">
-        <img src="{{ url_for('detect.images', filename=user_image.image_path) }}" alt="이미지" class="img-fluid">
+<form enctype="multipart/form-data" id="detect_form" method="post" novalidate>
+    {{ form.csrf_token }}
+    {{ form.image_id }}
+    {% for message in get_flashed_messages() %}
+    <span>{{ message }}</span>
+    {% endfor %}
+    <div>
+        {{ form.model(class="form-control", id="model_select") }}
     </div>
-    <div class="col">
-        <img src="" alt="이미지" class="img-fluid">
+    <div class="row row-cols-1 row-cols-xxl-2 g-3">
+        <div class="col">
+            <img alt="이미지" class="img-fluid" src="{{ url_for('detect.images', filename=user_image.image_path) }}">
+        </div>
+        <div class="col">
+            <div class="btn-group" id="detected_buttons">
+                <button class="btn btn-primary" type="submit">탐지</button>
+            </div>
+            <img alt="이미지" class="img-fluid" hidden id="detected_image" src="">
+        </div>
     </div>
-</div>
+</form>
+<script>
+    const model_select = document.getElementById('model_select');
+    const detect_form = document.getElementById('detect_form');
+    const detected_image = document.getElementById('detected_image');
+    const detected_buttons = document.getElementById('detected_buttons');
 
+    detect_form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const form_data = new FormData(detect_form)
+
+        const response = await fetch("{{ url_for('detect.image_detail', image_id=user_image.id) }}", {
+            method: 'POST',
+            body: form_data
+        })
+        if (response.ok) {
+            const json = await response.json()
+            console.log(json)
+            await get_detected_image()
+        } else {
+            console.error(response)
+        }
+    })
+
+    const get_detected_image = async () => {
+
+        const params = new URLSearchParams();
+        params.append("model", model_select.value);
+
+        const response = await fetch(`{{ url_for('detect.image_status', image_id=user_image.id) }}?${params}`)
+
+        if (response.ok) {
+            const json = await response.json()
+            console.log(json)
+            change_status(json.status, `{{ url_for('detect.images', filename='') }}${json.image_path}`)
+        } else {
+            console.error(response)
+        }
+    }
+
+    const change_status = (status, src) => {
+        switch (status) {
+            case "NONE":
+                detected_buttons.hidden = false;
+                detected_image.hidden = true;
+                break;
+            case "SUCCESS":
+                detected_buttons.hidden = true;
+                detected_image.hidden = false;
+                detected_image.src = src;
+                break;
+        }
+    }
+
+    model_select.addEventListener('change', (e) => {
+        model_select.value = e.target.value;
+        get_detected_image()
+    })
+
+    window.onload = () => {
+        get_detected_image()
+    }
+</script>
 {% endblock %}

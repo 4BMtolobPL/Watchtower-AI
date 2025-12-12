@@ -1,13 +1,14 @@
 {% extends 'detect/base.html' %}
 {% block title %}Image dashboard{% endblock %}
 {% block content %}
-<a href="{{ url_for('detect.upload_image') }}" class="btn btn-primary">업로드</a>
+<a class="btn btn-primary" href="{{ url_for('detect.upload_image') }}">업로드</a>
 <div class="row row-cols-4 g-4">
     {% for user_image in user_images %}
     <div class="col">
         <div class="bg-body-secondary p-3 ratio ratio-4x3">
-            <a href="{{ url_for('detect.detect_images', image_id=user_image.id) }}">
-                <img src="{{ url_for('detect.images', filename=user_image.image_path) }}" alt="이미지" class="img-thumbnail object-fit-cover">
+            <a href="{{ url_for('detect.image_detail', image_id=user_image.id) }}">
+                <img alt="이미지" class="img-thumbnail object-fit-cover"
+                     src="{{ url_for('detect.images', filename=user_image.image_path) }}">
             </a>
         </div>
     </div>

@@ -5,7 +5,7 @@
     {{ form.csrf_token }}
     {{ form.video_id() }}
     {% for message in get_flashed_messages() %}
-    <span class="dt-auth-flash">{{ message }}</span>
+    <span>{{ message }}</span>
     {% endfor %}
     <div>
         {{ form.model(class="form-control", id="model_select") }}

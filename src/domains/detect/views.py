@@ -16,14 +16,26 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
+from ultralytics.engine.results import Results
 
-from src.domains.detect.detector import DetectorEnum, detector_models
+from src.domains.detect.detector import (
+    ImageDetectorEnum,
+    VideoDetectorEnum,
+    image_detector_models,
+    video_detector_models,
+)
 from src.domains.detect.forms import (
+    DetectImageForm,
     DetectVideoForm,
     UploadImageForm,
     UploadVideoForm,
 )
-from src.domains.detect.models import DetectionVideo, UserImage, UserVideo
+from src.domains.detect.models import (
+    DetectionImage,
+    DetectionVideo,
+    UserImage,
+    UserVideo,
+)
 from src.main import db
 
 detect_views = Blueprint(
@@ -43,6 +55,23 @@ def images(filename: str):
     return send_from_directory(
         Path(current_app.config["UPLOAD_FOLDER"], "images"), filename
     )
+
+
+@detect_views.get("/images/<int:image_id>/status")
+def image_status(image_id: int):
+    model = request.args.get("model")
+
+    detection_image: DetectionImage | None = (
+        DetectionImage.query.filter(DetectionImage.user_image_id == image_id)
+        .filter(DetectionImage.model == model)
+        .order_by(DetectionImage.id.desc())
+        .first()
+    )
+
+    if detection_image is None:
+        return jsonify({"status": "NONE"})
+    else:
+        return jsonify({"status": "SUCCESS", "image_path": detection_image.image_path})
 
 
 @detect_views.route("/upload/images", methods=["GET", "POST"])
@@ -68,11 +97,37 @@ def upload_image():
     return render_template("detect/upload_images.html", form=form)
 
 
-@detect_views.route("/images/detect/<int:image_id>")
-def detect_images(image_id: int):
+@detect_views.route("/images/detail/<int:image_id>", methods=["GET", "POST"])
+def image_detail(image_id: int):
     user_image: UserImage = db.get_or_404(UserImage, image_id)
+    form = DetectImageForm()
+    form.image_id.data = image_id
 
-    return render_template("detect/image_detail.html", user_image=user_image)
+    if form.validate_on_submit():
+        selected_model = form.model.data
+        if selected_model not in [de.value for de in ImageDetectorEnum]:
+            return "잘못된 모델입니다.", 400
+
+        ext = Path(str(user_image.image_path)).suffix
+        base = Path(Path(current_app.config["UPLOAD_FOLDER"], "images"))
+        dest = str(uuid.uuid4()) + ext
+
+        detector = image_detector_models[(ImageDetectorEnum(selected_model))]()
+        results: List[Results] = detector.detect(base / user_image.image_path)
+        results[0].save(str(base / dest))
+        current_app.logger.info(f"File saved: {str(base / dest)}")
+
+        detection_image = DetectionImage(
+            model=selected_model,
+            image_path=dest,
+            user_image=user_image,
+        )
+        db.session.add(detection_image)
+        db.session.commit()
+
+        return jsonify({"image_path": dest})
+
+    return render_template("detect/image_detail.html", user_image=user_image, form=form)
 
 
 @detect_views.get("/videos")
@@ -157,7 +212,7 @@ def upload_video():
     return render_template("detect/upload_videos.html", form=form)
 
 
-@detect_views.route("/videos/detect/<int:video_id>", methods=["GET", "POST"])
+@detect_views.route("/videos/detail/<int:video_id>", methods=["GET", "POST"])
 def video_detail(video_id: int):
     user_video: UserVideo = db.get_or_404(UserVideo, video_id)
     form = DetectVideoForm()
@@ -165,14 +220,14 @@ def video_detail(video_id: int):
 
     if form.validate_on_submit():
         selected_model = form.model.data
-        if selected_model not in [de.value for de in DetectorEnum]:
+        if selected_model not in [de.value for de in VideoDetectorEnum]:
             return "잘못된 모델입니다.", 400
 
         dest = str(uuid.uuid4())
 
         result = detect_videos.delay(
             str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
-            user_video.video_path,
+            str(user_video.video_path),
             dest,
             selected_model,
         )
@@ -182,7 +237,7 @@ def video_detail(video_id: int):
             model=selected_model,
             task_id=result.id,
             video_path=f"{dest}.mp4",
-            user_video_id=user_video.id,
+            user_video=user_video,
         )
         db.session.add(detection_video)
         db.session.commit()
@@ -194,7 +249,6 @@ def video_detail(video_id: int):
             }
         )
 
-    form.model.data = DetectorEnum.FireDetectV1.value
     return render_template("detect/video_detail.html", user_video=user_video, form=form)
 
 
@@ -217,31 +271,17 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
 
 @shared_task(ignore_result=False)
-def detect_videos(base_path: str, src: str, dest_name: str, selected_model: str):
+def detect_videos(base: str, src: str, dest_name: str, selected_model: str):
     current_app.logger.info(f"Detecting videos: {src}")
+    base_path: Path = Path(base)
 
-    detector = detector_models[DetectorEnum(selected_model)]()
+    detector = video_detector_models[VideoDetectorEnum(selected_model)]()
+    detector.detect(
+        base_path / src, base_path / f"{dest_name}.mp4", conf=0.5, verbose=False
+    )
 
-    cap = cv2.VideoCapture(str(Path(base_path) / src))
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-    # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter.fourcc(*"avc1")
-    out = cv2.VideoWriter(f"{base_path}/{dest_name}.mp4", fourcc, fps, (width, height))
-
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
-
-        results = detector.detect(frame, conf=0.5, verbose=False)
-        out.write(results[0].plot())
-
-    out.release()
-    cap.release()
     current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
+    return dest_name
 
 
 @detect_views.get("/result/<string:result_id>")
