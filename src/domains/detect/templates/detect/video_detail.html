@@ -1,31 +1,91 @@
 {% extends 'detect/base.html' %}
 {% block title %}Video detail{% endblock %}
 {% block content %}
+<style>
+.video-box {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    height: auto;
+    overflow: hidden;
+}
+
+.video-box video {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 420px;
+    border-radius: 8px;
+}
+
+.video-placeholder {
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
+    background: #fafafa;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+}
+</style>
+
 <form enctype="multipart/form-data" id="detect_form" method="post" novalidate>
     {{ form.csrf_token }}
     {{ form.video_id() }}
     {% for message in get_flashed_messages() %}
     <span>{{ message }}</span>
     {% endfor %}
-    <div>
-        {{ form.model(class="form-control", id="model_select") }}
-    </div>
-    <div class="row row-cols-1 row-cols-xxl-2 g-3">
-        <div class="col">
-            <video class="img-fluid" controls
-                   src="{{ url_for('detect.videos', filename=user_video.video_path) }}"></video>
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <div style="min-width:220px;">
+            {{ form.model(class="form-control", id="model_select") }}
         </div>
-        <div class="col">
-            <video class="img-fluid" controls id="detected_video"></video>
-            <div class="spinner-border" id="detected_spinner" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="btn-group" id="detected_buttons">
-                <button class="btn btn-primary" type="submit">탐지</button>
-            </div>
+
+        <div class="btn-group" id="detected_buttons">
+            <button class="btn btn-primary" type="submit">탐지</button>
         </div>
     </div>
+<div class="row row-cols-1 row-cols-xl-2 g-4">
+
+    <!-- 원본 동영상 -->
+    <div class="col">
+        <div class="video-box shadow-sm">
+            <div class="fw-bold mb-2 text-dark">원본 동영상</div>
+            <video controls
+                   src="{{ url_for('detect.videos', filename=user_video.video_path) }}">
+            </video>
+        </div>
+    </div>
+<!-- 감지된 동영상 -->
+<div class="col">
+    <div class="video-box shadow-sm">
+        <div class="fw-bold mb-2 text-dark">감지된 동영상</div>
+
+        <video controls id="detected_video" hidden></video>
+
+<!-- 처리 상태 영역 -->
+<div class="video-placeholder" id="detected_spinner">
+    <div class="d-flex flex-column align-items-center gap-2">
+        <div class="spinner-border d-none" id="loading_spinner" role="status"></div>
+        <div id="detect_message">감지된 동영상이 없습니다.</div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
 </form>
+<div class="mt-3 mb-4">
+    <a href="{{ url_for('detect.video_dashboard') }}"
+       class="btn btn-outline-dark"
+       style="font-size: 0.85rem; padding: 7px 16px; border-radius: 6px;">
+        ← 영상 목록으로 돌아가기
+    </a>
+</div>
 <script>
     const model_select = document.getElementById('model_select');
     const detect_form = document.getElementById('detect_form');
@@ -161,25 +221,37 @@
     }
 
     const change_detect_status = (status, src) => {
-        if (status === "NONE") {
-            detected_buttons.hidden = false
-            detected_spinner.hidden = true
-            detected_video.hidden = true
-        } else if (status === "PENDING") {
-            detected_buttons.hidden = true
-            detected_spinner.hidden = false
-            detected_video.hidden = true
-        } else if (status === "FAILURE") {
-            detected_buttons.hidden = false
-            detected_spinner.hidden = true
-            detected_video.hidden = true
-        } else if (status === "SUCCESS") {
-            detected_buttons.hidden = true
-            detected_spinner.hidden = true
-            detected_video.hidden = false
-            detected_video.src = src
-        }
+    if (status === "NONE") {
+        // 최초 진입 상태
+        detected_buttons.hidden = false;
+
+        detected_video.hidden = true;
+        detected_spinner.hidden = false;
+
+        loading_spinner.classList.add('d-none');
+        detect_message.innerText = "감지된 동영상이 없습니다.";
+
+    } else if (status === "PENDING") {
+        // 탐지 버튼 눌렀을 때
+        detected_buttons.hidden = true;
+
+        detected_video.hidden = true;
+        detected_spinner.hidden = false;
+
+        loading_spinner.classList.remove('d-none');
+        detect_message.innerText = "Loading...";
+
+    } else if (status === "SUCCESS") {
+        // 처리 완료
+        detected_buttons.hidden = true;
+
+        detected_spinner.hidden = true;
+        detected_video.hidden = false;
+        detected_video.src = src;
     }
+};
+
+
 
     window.onload = () => {
         check_task()
