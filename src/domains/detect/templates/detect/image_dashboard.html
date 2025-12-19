@@ -1,7 +1,9 @@
 {% extends 'detect/base.html' %}
+
 {% block title %}이미지 감지 대시보드{% endblock %}
 
 {% block content %}
+
 <style>
 .gallery-card {
     background: rgba(255,255,255,0.08);
@@ -13,28 +15,17 @@
     transition: 0.25s;
     cursor: pointer;
 }
-
 .gallery-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 30px rgba(0,170,255,0.35);
 }
-
 .thumb-img {
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
-
-.delete-btn-small {
-    background: rgba(255, 80, 80, 0.85);
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    width: 100%;
-    font-weight: 600;
-    margin-top: 10px;
-}
 </style>
+
 <a href="{{ url_for('detect.upload_image') }}"
    class="btn btn-primary mb-3"
    style="background: linear-gradient(135deg, #0095ff, #00d4ff); border: none">
@@ -43,39 +34,30 @@
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
-{% for user_image in user_images %}
+    {% for user_image in user_images %}
     <div class="col">
 
-        <div class="d-flex flex-column">
-
-
-            <a href="{{ url_for('detect.image_detail', image_id=user_image.id) }}"
-               style="text-decoration: none;">
-                <div class="gallery-card">
-                    <img src="{{ url_for('detect.images', filename=user_image.image_path) }}"
-                         class="thumb-img">
-                </div>
-            </a>
-
-
-            {% if delete_form is defined %}
-            <form method="POST"
-                  action="{{ url_for('detect.delete_selected_images') }}"
-                  class="mt-2"
-                  onsubmit="return confirm('정말 삭제할까요?');">
-
-                {{ delete_form.csrf_token }}
-                <input type="hidden" name="delete_ids" value="{{ user_image.id }}">
-
-                <button type="submit" class="delete-btn-small">
+        <a href="{{ url_for('detect.image_detail', image_id=user_image.id) }}"
+           style="text-decoration: none;">
+            <div class="gallery-card">
+                <img src="{{ url_for('detect.images', filename=user_image.image_path) }}"
+                     class="thumb-img"
+                     alt="이미지">
+            </div>
+        </a>
+        <form method="post"
+              action="{{ url_for('detect.delete_image', image_id=user_image.id) }}"
+              onsubmit="return confirm('정말 삭제하시겠습니까?');">
+            {{ delete_form.csrf_token }}
+            <button type="submit"
+                    class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                     삭제
-                </button>
-            </form>
-            {% endif %}
+            </button>
 
-        </div>
+        </form>
+
     </div>
-{% endfor %}
+    {% endfor %}
 
 </div>
 

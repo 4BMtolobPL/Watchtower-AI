@@ -29,6 +29,7 @@ from src.domains.detect.forms import (
     DetectVideoForm,
     UploadImageForm,
     UploadVideoForm,
+    DeleteImageForm,
 )
 from src.domains.detect.models import (
     DetectionImage,
@@ -46,8 +47,13 @@ detect_views = Blueprint(
 @detect_views.get("/images")
 def image_dashboard():
     user_images: List[UserImage] = UserImage.query.order_by(UserImage.id.desc()).all()
+    delete_form = DeleteImageForm()
 
-    return render_template("detect/image_dashboard.html", user_images=user_images)
+    return render_template(
+        "detect/image_dashboard.html",
+        user_images=user_images,
+        delete_form=delete_form,
+    )
 
 
 @detect_views.get("/images/<path:filename>")
@@ -74,10 +80,31 @@ def image_status(image_id: int):
         return jsonify({"status": "SUCCESS", "image_path": detection_image.image_path})
 
 
+@detect_views.post("/images/<int:image_id>/delete")
+@login_required
+def delete_image(image_id):
+    image = UserImage.query.get_or_404(image_id)
+
+    # DetectionImage 먼저 삭제
+    DetectionImage.query.filter_by(user_image_id=image.id).delete()
+
+    # 파일 삭제
+    image_path = Path(current_app.config["UPLOAD_FOLDER"], "images", image.image_path)
+    if image_path.exists():
+        image_path.unlink()
+
+    # UserImage 삭제
+    db.session.delete(image)
+    db.session.commit()
+
+    return redirect(url_for("detect.image_dashboard"))
+
+
 @detect_views.route("/upload/images", methods=["GET", "POST"])
 @login_required
 def upload_image():
     form = UploadImageForm()
+    delete_form = DeleteImageForm()
 
     if form.validate_on_submit():
         file = form.image.data
@@ -94,7 +121,35 @@ def upload_image():
         db.session.commit()
 
         return redirect(url_for("detect.image_dashboard"))
-    return render_template("detect/upload_images.html", form=form)
+    images = UserImage.query.order_by(UserImage.id.desc()).all()
+    return render_template(
+        "detect/upload_images.html",
+        form=form,
+        delete_form=delete_form,
+        images=images,
+    )
+
+
+@detect_views.post("/images/delete-selected")
+@login_required
+def delete_selected_images():
+    image_ids = request.form.getlist("delete_ids")
+
+    if not image_ids:
+        return redirect(url_for("detect.upload_image"))
+
+    images = UserImage.query.filter(UserImage.id.in_(image_ids)).all()
+
+    for img in images:
+        DetectionImage.query.filter_by(user_image_id=img.id).delete()
+        file_path = Path(current_app.config["UPLOAD_FOLDER"], "images", img.image_path)
+        if file_path.exists():
+            file_path.unlink()
+
+        db.session.delete(img)
+
+    db.session.commit()
+    return redirect(url_for("detect.upload_image"))
 
 
 @detect_views.route("/images/detail/<int:image_id>", methods=["GET", "POST"])
@@ -133,8 +188,13 @@ def image_detail(image_id: int):
 @detect_views.get("/videos")
 def video_dashboard():
     user_videos: List[UserVideo] = UserVideo.query.order_by(UserVideo.id.desc()).all()
+    delete_form = DeleteImageForm()
 
-    return render_template("detect/video_dashboard.html", user_videos=user_videos)
+    return render_template(
+        "detect/video_dashboard.html",
+        user_videos=user_videos,
+        delete_form=delete_form,
+    )
 
 
 @detect_views.get("/videos/<path:filename>")
@@ -210,6 +270,42 @@ def upload_video():
 
         return redirect(url_for("detect.video_dashboard"))
     return render_template("detect/upload_videos.html", form=form)
+
+
+# 삭제 라우트
+@detect_views.post("/videos/delete-selected")
+@login_required
+def delete_selected_videos():
+    video_ids = request.form.getlist("delete_ids")
+
+    if not video_ids:
+        return redirect(url_for("detect.video_dashboard"))
+
+    videos = UserVideo.query.filter(UserVideo.id.in_(video_ids)).all()
+
+    for video in videos:
+        # DetectionVideo 먼저 삭제
+        DetectionVideo.query.filter_by(user_video_id=video.id).delete()
+
+        # 영상 파일 삭제
+        video_path = Path(
+            current_app.config["UPLOAD_FOLDER"], "videos", video.video_path
+        )
+        if video_path.exists():
+            video_path.unlink()
+
+        # 썸네일 삭제
+        if video.thumbnail_path:
+            thumbnail_path = Path(
+                current_app.config["UPLOAD_FOLDER"], "videos", video.thumbnail_path
+            )
+            if thumbnail_path.exists():
+                thumbnail_path.unlink()
+
+        db.session.delete(video)
+
+    db.session.commit()
+    return redirect(url_for("detect.video_dashboard"))
 
 
 @detect_views.route("/videos/detail/<int:video_id>", methods=["GET", "POST"])

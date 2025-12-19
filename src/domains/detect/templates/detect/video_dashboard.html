@@ -59,13 +59,13 @@
         <form method="POST"
               action="{{ url_for('detect.delete_selected_videos') }}"
               class="mt-2"
-              onsubmit="return confirm('정말 삭제할까요?');">
+              onsubmit="return confirm('정말 삭제하시겠습니까?');">
 
             {{ delete_form.csrf_token }}
             <input type="hidden" name="delete_ids" value="{{ user_video.id }}">
-
-            <button type="submit" class="delete-btn-small">
-                삭제
+            <button type="submit"
+                    class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    삭제
             </button>
         </form>
         {% endif %}
