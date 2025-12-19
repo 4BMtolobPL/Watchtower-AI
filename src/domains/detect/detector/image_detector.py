@@ -1,9 +1,7 @@
 import os
-from abc import abstractmethod, ABC
 from pathlib import Path
 
 from ultralytics import YOLO
-
 
 models_folder = Path(os.environ.get("MODELS_FOLDER", "models"))
 

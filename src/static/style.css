@@ -1,26 +1,21 @@
+
 @keyframes mainFade {
     0% { opacity: 0; transform: translate(-50%, -60%) scale(0.95); }
     100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* 배경 영상 스타일 */
 #bg-video {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
-    z-index: -2;  /* 가장 뒤에 */
+    z-index: -2;
 }
 
-/* 그라데이션 오버레이 */
 .video-overlay {
     position: fixed;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-
+    width: 100%; height: 100%;
     background: linear-gradient(
         to bottom,
         rgba(0,0,0,0.0) 0%,
@@ -28,113 +23,59 @@
         rgba(0,0,0,0.25) 60%,
         rgba(0,0,0,0.45) 100%
     );
-
-    pointer-events: none;  /* 클릭에 방해 안 되게 */
-    z-index: -1;           /* 영상 위, 텍스트 아래 */
+    pointer-events: none;
+    z-index: -1;
 }
 
+/* 메인 타이틀 (교통 이상 징후 감지 시스템) */
 .main-title {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 42px;
+    font-weight: 300;
     color: white;
     text-shadow: 0 8px 20px rgba(0,0,0,0.6);
     animation: fadeUp 1.5s ease-out;
     font-family: 'Pretendard', sans-serif;
+    white-space: nowrap;
 }
 
-
+/* 서브 타이틀 (WatchTower-AI)*/
 .sub-title {
-    position: absolute;
-    top: calc(45% + 120px);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 65px;
+    font-size: 80px;
+    font-weight: 600;
     color: white;
     opacity: 0;
     animation: fadeIn 1.5s ease-out forwards;
     animation-delay: 1.2s;
     text-shadow: 0 6px 15px rgba(0,0,0,0.5);
     font-family: 'Pretendard', sans-serif;
-    font-weight: 800;
-    padding-bottom: 0.2px; /* 밑줄 공간 확보 */
+    white-space: nowrap;
+
+
 }
 
 .sub-title::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    left: 50%;
+    bottom: 0; left: 50%;
     transform: translateX(-50%);
-
-    width: 0px;                /* 애니메이션 시작: 0px */
+    width: 0;
     height: 3px;
     background: rgba(255,255,255,0.9);
-
     animation: underlineGrow 1.2s ease-out forwards;
-    animation-delay: 1.4s;     /* 글씨 나타난 후 실행 */
+    animation-delay: 1.4s;
 }
 
-/* 밑줄이 왼쪽 → 오른쪽으로 펼쳐지는 애니메이션 */
 @keyframes underlineGrow {
-    0% {
-        width: 0;
-        opacity: 0;
-    }
-    100% {
-        width: 550px;   /* 최종 밑줄 길이 */
-        opacity: 1;
-    }
+    0% { width: 0; opacity: 0; }
+    100% { width: 550px; opacity: 1; }
 }
 
 .content-wrapper {
-    padding: 0;
-    margin: 0;
+    padding-top: 80px;
+    padding-bottom: 20px;
     width: 100%;
-    max-width: 100%;
 }
 
-
-.navbar-blur {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(4px);                  /* 옵션: 배경 이미지 약간 흐려짐 */
-    -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);      /* 자연스러운 그림자 */
-}
-
-.navbar-blur .nav-link,
-.navbar-blur .navbar-brand {
-    color: white !important;
-    font-family: 'Pretendard', sans-serif;
-    font-weight: 300;
-}
-.navbar-nav .nav-link {
-    position: relative;
-    color: white !important;
-    padding-bottom: 4px;
-    transition: color 0.3s ease;
-}
-
-.navbar-nav .nav-link::after {
-    transition: width 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.navbar-nav .nav-link.active {
-    color: #00eaff !important;
-}
-
-.navbar-nav .nav-link.active::after {
-    width: 100%;
-    background-color: #00eaff;
-}
-
-
-.navbar-brand img {
-    margin-right: 6px;
-}
 .navbar-blur {
     background: linear-gradient(
         to bottom,
@@ -144,14 +85,30 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    min-height: auto !important;
 }
 
+/* 메뉴 글자 */
+.navbar-blur .nav-link,
+.navbar-blur .navbar-brand {
+    color: white !important;
+    font-family: "Pretendard", sans-serif;
+    font-weight: 300;
+}
+
+
+.navbar-nav .nav-link {
+    position: relative;
+    color: white !important;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
 
 .navbar-nav .nav-link::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 0; left: 0;
     width: 0;
     height: 2px;
     background-color: #ffffff;
@@ -160,34 +117,39 @@
 
 .navbar-nav .nav-link:hover::after {
     width: 100%;
-    background-color: #ffffff;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #f5f5f5 !important;
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+}
+
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+    background-color: #fff;
+}
+
+
+.navbar-brand img {
+    margin-right: 6px;
 }
 
 .brand-thin {
-    font-weight: 100;         /* 얇게 */
-    font-family: 'Pretendard', sans-serif;  /* 같은 폰트 유지 */
-    letter-spacing: 0.5px;    /*(optional) 조금 더 세련되게 */
+    font-weight: 100;
+    letter-spacing: 0.5px;
 }
+
 
 .hamburger-btn {
     background: transparent;
     border: none;
     padding: 6px;
-    filter: invert(1); /* 흰색 아이콘 */
+    filter: none;
 }
 
-
-
-/* hover 시 드롭다운 자동 열림 */
 .navbar-right.dropdown:hover .dropdown-menu {
     display: block;
 }
 
-/* 드롭다운 배경 */
 .dropdown-menu {
     background-color: rgba(0,0,0,0.7);
     backdrop-filter: blur(4px);
@@ -211,14 +173,43 @@
 .dropdown-menu-end {
     right: 0 !important;
     left: auto !important;
-    transform: translateX(0) !important;
 }
 
-.content-wrapper {
-    padding-top: 80px; /* 네비바 높이만큼 여백 확보 */
+
+/* 메뉴 짤리지 않도록 */
+.navbar-nav .nav-link {
+    white-space: nowrap !important;
+}
+
+
+.navbar-collapse {
+    flex-basis: 100% !important;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-nav {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+
+    .navbar-brand {
+        margin-bottom: 6px;
+    }
 }
 
 .navbar-nav.mx-auto {
-    transform: translateX(-45px);
+    transform: none !important;
 }
 
+/* 창이 작아졌을때 뜨는 햄버거 */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:focus-visible {
+    box-shadow: 0 0 0 2px #ffffff;
+    outline: none;
+}

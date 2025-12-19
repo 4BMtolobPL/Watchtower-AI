@@ -16,7 +16,7 @@ class UploadImageForm(FlaskForm):
             ),
         ]
     )
-    submit = SubmitField("탐지")
+    submit = SubmitField("감지 시작")
 
 
 class UploadVideoForm(FlaskForm):
@@ -45,3 +45,7 @@ class DetectVideoForm(FlaskForm):
         choices=[(de.value, de.name) for de in VideoDetectorEnum],
         default=VideoDetectorEnum.FireDetectV1.value,
     )
+
+# 삭제 기능을 위한 폼 (CSRF 토큰 제공 목적)
+class DeleteImageForm(FlaskForm):
+    submit = SubmitField("삭제")
