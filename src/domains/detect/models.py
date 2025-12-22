@@ -1,4 +1,5 @@
 import datetime
+from enum import Enum
 from typing import List
 
 from sqlalchemy import ForeignKey
@@ -55,11 +56,18 @@ class DetectionImage(db.Model):
     user_image: Mapped["UserImage"] = relationship(back_populates="detection_images")
 
 
+class TaskStatus(Enum):
+    PENDING = "PENDING"
+    STARTED = "STARTED"
+    FAILURE = "FAILURE"
+    SUCCESS = "SUCCESS"
+
+
 class DetectionVideo(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     model: Mapped[str] = mapped_column()
-    task_id: Mapped[str] = mapped_column(nullable=True)
     video_path: Mapped[str] = mapped_column(nullable=True)
+    status: Mapped[TaskStatus] = mapped_column(default=TaskStatus.PENDING)
 
     user_video_id: Mapped[int] = mapped_column(ForeignKey("user_video.id"))
     user_video: Mapped["UserVideo"] = relationship(back_populates="detection_videos")

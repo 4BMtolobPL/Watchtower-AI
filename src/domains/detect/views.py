@@ -5,6 +5,7 @@ from typing import List
 import cv2
 from celery import shared_task
 from celery.result import AsyncResult
+from charset_normalizer import detect
 from flask import (
     Blueprint,
     current_app,
@@ -25,15 +26,16 @@ from src.domains.detect.detector import (
     video_detector_models,
 )
 from src.domains.detect.forms import (
+    DeleteImageForm,
     DetectImageForm,
     DetectVideoForm,
     UploadImageForm,
     UploadVideoForm,
-    DeleteImageForm,
 )
 from src.domains.detect.models import (
     DetectionImage,
     DetectionVideo,
+    TaskStatus,
     UserImage,
     UserVideo,
 )
@@ -224,16 +226,16 @@ def check_task():
         .first()
     )
 
-    if not detection_video:
-        return jsonify({"status": "None"})
-
-    return jsonify(
-        {
-            "status": "Ok",
-            "task_id": detection_video.task_id,
-            "video_path": detection_video.video_path,
-        }
-    )
+    if detection_video is None:
+        return jsonify({"status": "NONE"})
+    else:
+        return jsonify(
+            {
+                "detection_video_id": detection_video.id,
+                "video_path": detection_video.video_path,
+                "status": detection_video.status.value,
+            }
+        )
 
 
 @detect_views.get("/videos/thumbnail/<path:thumbnail>")
@@ -321,27 +323,28 @@ def video_detail(video_id: int):
 
         dest = str(uuid.uuid4())
 
-        result = detect_videos.delay(
-            str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
-            str(user_video.video_path),
-            dest,
-            selected_model,
-        )
-        current_app.logger.info(f"Task 추가: {result.id}")
-
         detection_video = DetectionVideo(
             model=selected_model,
-            task_id=result.id,
             video_path=f"{dest}.mp4",
             user_video=user_video,
         )
         db.session.add(detection_video)
         db.session.commit()
 
+        result = detect_videos.delay(
+            str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
+            str(user_video.video_path),
+            dest,
+            selected_model,
+            detection_video.id,
+        )
+        current_app.logger.info(f"Task 추가: {result.id}")
+
         return jsonify(
             {
-                "result_id": detection_video.task_id,
+                "detection_video_id": detection_video.id,
                 "video_path": detection_video.video_path,
+                "status": detection_video.status.value,
             }
         )
 
@@ -367,38 +370,35 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
 
 @shared_task(ignore_result=False)
-def detect_videos(base: str, src: str, dest_name: str, selected_model: str):
+def detect_videos(
+    base: str, src: str, dest_name: str, selected_model: str, detection_video_id: int
+):
     current_app.logger.info(f"Detecting videos: {src}")
-    base_path: Path = Path(base)
 
-    detector = video_detector_models[VideoDetectorEnum(selected_model)]()
-    detector.detect(
-        base_path / src, base_path / f"{dest_name}.mp4", conf=0.5, verbose=False
+    detection_video: DetectionVideo | None = DetectionVideo.query.get(
+        detection_video_id
     )
+    if detection_video:
+        detection_video.status = TaskStatus.STARTED
+        db.session.commit()
 
-    current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
-    return dest_name
+    try:
+        base_path: Path = Path(base)
 
-
-@detect_views.get("/result/<string:result_id>")
-def task_result(result_id: str):
-    result = AsyncResult(result_id)
-
-    if result.failed():
-        current_app.logger.error(f"Task failed: {result_id}\n{result.info}")
-        return (
-            jsonify(
-                {
-                    "state": result.state,
-                    "error": str(result.info),
-                }
-            ),
-            500,
+        detector = video_detector_models[VideoDetectorEnum(selected_model)]()
+        detector.detect(
+            base_path / src, base_path / f"{dest_name}.mp4", conf=0.5, verbose=False
         )
 
-    return jsonify(
-        {
-            "state": result.state,
-            "result": result.result,
-        }
-    )
+        current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
+
+        if detection_video:
+            detection_video.status = TaskStatus.SUCCESS
+            db.session.commit()
+    except Exception as e:
+        current_app.logger.error(f"End detecting videos: {e}")
+        if detection_video:
+            detection_video.status = TaskStatus.FAILURE
+            db.session.commit()
+
+    return dest_name
