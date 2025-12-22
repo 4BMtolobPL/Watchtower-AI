@@ -52,6 +52,7 @@ print(secrets.SystemRandom().getrandbits(128))
 ### Optional
 
 ```dotenv
+FLASK_DEBUG=True
 UPLOAD_FOLDER=
 MODELS_FOLDER=
 ```
