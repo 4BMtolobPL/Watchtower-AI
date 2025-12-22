@@ -279,36 +279,43 @@ def upload_video():
 @detect_views.post("/videos/delete-selected")
 @login_required
 def delete_selected_videos():
-    video_ids = request.form.getlist("delete_ids")
+    video_ids: List[str] = request.form.getlist("delete_ids")
 
     if not video_ids:
         return redirect(url_for("detect.video_dashboard"))
 
-    videos = UserVideo.query.filter(UserVideo.id.in_(video_ids)).all()
+    delete_videos(list(map(lambda x: int(x), video_ids)))
+    return redirect(url_for("detect.video_dashboard"))
 
-    for video in videos:
-        # DetectionVideo 먼저 삭제
-        DetectionVideo.query.filter_by(user_video_id=video.id).delete()
 
-        # 영상 파일 삭제
-        video_path = Path(
-            current_app.config["UPLOAD_FOLDER"], "videos", video.video_path
-        )
+def delete_videos(delete_ids: List[int]):
+    videos_folder = Path(current_app.config["UPLOAD_FOLDER"], "videos")
+
+    detection_videos: List[DetectionVideo] = DetectionVideo.query.filter(
+        DetectionVideo.user_video_id.in_(delete_ids)
+    ).all()
+    for detection_video in detection_videos:
+        path = videos_folder / detection_video.video_path
+        if path.exists():
+            path.unlink()
+
+        db.session.delete(detection_video)
+
+    user_videos: List[UserVideo] = UserVideo.query.filter(
+        UserVideo.id.in_(delete_ids)
+    ).all()
+    for user_video in user_videos:
+        video_path = videos_folder / user_video.video_path
         if video_path.exists():
             video_path.unlink()
 
-        # 썸네일 삭제
-        if video.thumbnail_path:
-            thumbnail_path = Path(
-                current_app.config["UPLOAD_FOLDER"], "videos", video.thumbnail_path
-            )
-            if thumbnail_path.exists():
-                thumbnail_path.unlink()
+        thumbnail_path = videos_folder / user_video.thumbnail_path
+        if thumbnail_path.exists():
+            thumbnail_path.unlink()
 
-        db.session.delete(video)
+        db.session.delete(user_video)
 
     db.session.commit()
-    return redirect(url_for("detect.video_dashboard"))
 
 
 @detect_views.route("/videos/detail/<int:video_id>", methods=["GET", "POST"])
