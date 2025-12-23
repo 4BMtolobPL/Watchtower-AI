@@ -42,14 +42,14 @@
     <span>{{ message }}</span>
     {% endfor %}
     <div class="d-flex align-items-center gap-2 mb-3">
-    <div style="min-width:220px;">
-        {{ form.model(class="form-control", id="model_select") }}
-    </div>
+        <div style="min-width:220px;">
+            {{ form.model(class="form-control", id="model_select") }}
+        </div>
 
-    <div class="btn-group" id="detected_buttons">
-        <button class="btn btn-primary" type="submit">탐지</button>
+        <div class="btn-group" id="detected_buttons">
+            <button class="btn btn-primary" type="submit">탐지</button>
+        </div>
     </div>
-</div>
 
     <div class="row row-cols-1 row-cols-xl-2 g-4">
         <!-- 원본 이미지 -->
@@ -64,7 +64,7 @@
             <div class="image-box shadow-sm">
                 <div class="fw-bold mb-2 text-dark">감지된 이미지</div>
 
-                <img src="" alt="감지 이미지" id="detected_image" hidden>
+                <img alt="감지 이미지" hidden id="detected_image" src="">
 
                 <div class="placeholder-box" id="image_placeholder">
                     아직 감지된 이미지가 없습니다.
@@ -74,8 +74,8 @@
     </div>
 </form>
 <div class="mt-3 mb-4">
-    <a href="{{ url_for('detect.image_dashboard') }}"
-       class="btn btn-outline-dark"
+    <a class="btn btn-outline-dark"
+       href="{{ url_for('detect.image_dashboard') }}"
        style="font-size: 0.85rem; padding: 7px 16px; border-radius: 6px;">
         ← 이미지 목록으로 돌아가기
     </a>

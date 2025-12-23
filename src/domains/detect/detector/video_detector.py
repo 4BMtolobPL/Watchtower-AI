@@ -10,7 +10,6 @@ models_folder = Path(os.environ.get("MODELS_FOLDER", "models"))
 
 
 class BaseVideoDetector:
-
     def __init__(self, model_src: Path, **kwargs):
         self.model = YOLO(model_src, **kwargs)
 

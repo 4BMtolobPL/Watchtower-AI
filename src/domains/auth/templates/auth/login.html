@@ -5,7 +5,7 @@
     <div class="card dt-auth-login">
         <header><h2>Login</h2></header>
         <section>
-            <form method="POST" action="{{ url_for('auth.login', next=request.args.get('next')) }}" novalidate>
+            <form action="{{ url_for('auth.login', next=request.args.get('next')) }}" method="POST" novalidate>
                 {{ form.csrf_token }}
                 {% for message in get_flashed_messages() %}
                 <span class="dt-auth-flash">{{ message }}</span>

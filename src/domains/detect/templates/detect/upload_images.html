@@ -27,7 +27,7 @@
 
     .form-control:focus {
         border-color: #0095ff;
-        box-shadow: 0 0 6px rgba(0,149,255,0.5);
+        box-shadow: 0 0 6px rgba(0, 149, 255, 0.5);
         color: #000;
     }
 
@@ -54,6 +54,7 @@
         margin-top: 15px;
         color: #fff;
     }
+
     .delete-btn:hover {
         background: #c9302c;
     }
@@ -79,7 +80,7 @@
 
     .img-box:hover {
         background: #fff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         transform: translateY(-3px);
     }
 
@@ -116,14 +117,14 @@
     <div class="glass-card">
         <div class="glass-title">이미지 업로드</div>
 
-        <form method="post" enctype="multipart/form-data" novalidate>
+        <form enctype="multipart/form-data" method="post" novalidate>
             {{ form.csrf_token }}
 
             <label>업로드할 이미지 선택</label>
             {{ form.image(class="form-control mb-3") }}
 
             {% for error in form.image.errors %}
-                <div class="text-danger small">{{ error }}</div>
+            <div class="text-danger small">{{ error }}</div>
             {% endfor %}
 
             <button class="btn upload-btn w-100">업로드</button>
@@ -134,38 +135,38 @@
     <div class="glass-card">
         <div class="glass-title">이미지 목록</div>
 
-        <form method="POST" action="{{ url_for('detect.delete_selected_images') }}">
+        <form action="{{ url_for('detect.delete_selected_images') }}" method="POST">
             {{ delete_form.csrf_token }}
 
             {% if images %}
             <div class="mb-2">
-                <input type="checkbox" id="check_all" style="transform:scale(1.2); margin-right:5px;">
+                <input id="check_all" style="transform:scale(1.2); margin-right:5px;" type="checkbox">
                 <label for="check_all">전체 선택</label>
             </div>
 
             <div class="img-grid">
                 {% for img in images %}
                 <label class="img-box">
-                    <input type="checkbox" class="check" name="delete_ids" value="{{ img.id }}">
-                    <img src="{{ url_for('detect.images', filename=img.image_path) }}" class="thumb-img">
+                    <input class="check" name="delete_ids" type="checkbox" value="{{ img.id }}">
+                    <img class="thumb-img" src="{{ url_for('detect.images', filename=img.image_path) }}">
                     <div class="img-label">#{{ loop.index }}</div>
                 </label>
                 {% endfor %}
             </div>
 
-            <button type="submit" class="btn delete-btn w-100"
-                    onclick="return confirm('선택한 이미지를 삭제할까요?');">
+            <button class="btn delete-btn w-100" onclick="return confirm('선택한 이미지를 삭제할까요?');"
+                    type="submit">
                 선택 삭제
             </button>
 
             {% else %}
-                <p class="text-muted">감지된 이미지가 없습니다.</p>
+            <p class="text-muted">감지된 이미지가 없습니다.</p>
             {% endif %}
         </form>
     </div>
-        <div class="mt-3 mb-4">
-        <a href="{{ url_for('detect.image_dashboard') }}"
-           class="btn btn-outline-dark"
+    <div class="mt-3 mb-4">
+        <a class="btn btn-outline-dark"
+           href="{{ url_for('detect.image_dashboard') }}"
            style="font-size: 0.85rem; padding: 7px 16px; border-radius: 6px;">
             ← 이미지 목록으로 돌아가기
         </a>

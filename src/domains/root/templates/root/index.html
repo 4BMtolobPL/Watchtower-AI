@@ -5,13 +5,21 @@
 <style>
 
     @keyframes fadeUp {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 
-     @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 
     #bg-video {
@@ -24,7 +32,7 @@
         z-index: -1;
     }
 
-    .title-wrap{
+    .title-wrap {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -38,18 +46,37 @@
         max-width: 100vw;
     }
 
-  @media (max-width: 1200px){ .title-wrap{ transform: translate(-50%, -50%) scale(0.9); } }
-  @media (max-width: 992px) { .title-wrap{ transform: translate(-50%, -50%) scale(0.8); } }
-  @media (max-width: 768px) { .title-wrap{ transform: translate(-50%, -50%) scale(0.7); } }
-  @media (max-width: 576px) { .title-wrap{ transform: translate(-50%, -50%) scale(0.6); } }
+    @media (max-width: 1200px) {
+        .title-wrap {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .title-wrap {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .title-wrap {
+            transform: translate(-50%, -50%) scale(0.7);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .title-wrap {
+            transform: translate(-50%, -50%) scale(0.6);
+        }
+    }
 
 </style>
 
-<video id="bg-video" autoplay muted loop>
+<video autoplay id="bg-video" loop muted>
     <source src="{{ url_for('static', filename='City2.mp4') }}" type="video/mp4">
 </video>
 
-    <div class="video-overlay"></div>
+<div class="video-overlay"></div>
 
 <div class="title-wrap">
     <div class="main-title">교통 이상 징후 감지 시스템</div>

@@ -5,7 +5,8 @@
     <div>
         <header><h2>Sign up</h2></header>
         <section>
-            <form class="form-signin" method="POST" action="{{ url_for('user.signup', next=request.args.get('next')) }}" novalidate="novalidate">
+            <form action="{{ url_for('user.signup', next=request.args.get('next')) }}" class="form-signin" method="POST"
+                  novalidate="novalidate">
                 {{ form.csrf_token }}
                 {% for message in get_flashed_messages() %}
                 <div>{{ message }}</div>

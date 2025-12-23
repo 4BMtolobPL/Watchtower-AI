@@ -43,11 +43,10 @@ def create_app(env: str = "development") -> Flask:
     csrf.init_app(app)
     login_manager.init_app(app)
 
-    from src.domains.root.views import root_views
-
     # from src.domains.user.views import user_views
     # from src.domains.auth.views import auth_views
     from src.domains.detect.views import detect_views
+    from src.domains.root.views import root_views
 
     app.register_blueprint(root_views, url_prefix="/")
     # app.register_blueprint(user_views, url_prefix="/user")
