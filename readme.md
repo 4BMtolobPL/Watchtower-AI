@@ -23,6 +23,15 @@ uv run flask db upgrade
 
 ### Run flask, celery
 
+#### Linux, Mac
+
+```bash
+uv run flask run
+uv run celery -A src.make_celery worker --loglevel INFO
+```
+
+#### Windows
+
 ```bash
 uv run flask run
 uv run celery -A src.make_celery worker --loglevel INFO -P gevent
@@ -52,7 +61,6 @@ print(secrets.SystemRandom().getrandbits(128))
 ### Optional
 
 ```dotenv
-FLASK_DEBUG=True
 UPLOAD_FOLDER=
 MODELS_FOLDER=
 ```
