@@ -33,6 +33,27 @@ class DevelopmentConfig(BaseConfig):
     )
 
 
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = False
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    WTF_CSRF_SECRET_KEY = os.environ.get("WTF_CSRF_SECRET_KEY")
+    SECURITY_REGISTERABLE = True
+    SECURITY_SEND_REGISTER_EMAIL = False
+    SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT")
+    UPLOAD_FOLDER = str(Path(basedir, os.environ.get("UPLOAD_FOLDER", "uploads")))
+    MODELS_FOLDER = str(Path(basedir, os.environ.get("MODELS_FOLDER", "models")))
+
+    CELERY = dict(
+        broker_url=os.environ.get("CELERY_BROKER_URL"),
+        result_backend=os.environ.get("CELERY_RESULT_BACKEND"),
+        task_track_started=True,
+        task_ignore_result=True,
+    )
+
+
 config = {
     "development": DevelopmentConfig,
+    "production": ProductionConfig,
 }
