@@ -1,6 +1,9 @@
+import json
 import os
+import subprocess
 import time
 from pathlib import Path
+from typing import List
 
 import cv2
 import numpy as np
@@ -13,25 +16,119 @@ class BaseVideoDetector:
     def __init__(self, model_src: Path, **kwargs):
         self.model = YOLO(model_src, **kwargs)
 
+    @staticmethod
+    def create_h264_output_command(
+        width: int, height: int, save_path: Path
+    ) -> List[str]:
+        return [
+            "ffmpeg",
+            "-y",
+            "-f",
+            "rawvideo",
+            "-pix_fmt",
+            "bgr24",
+            "-s",
+            f"{width}x{height}",
+            "-i",
+            "-",
+            "-c:v",
+            "libx264",
+            "-profile:v",
+            "main",
+            "-pix_fmt",
+            "yuv420p",
+            "-movflags",
+            "+faststart",
+            str(save_path.resolve()),
+        ]
+
+    @staticmethod
+    def create_file_input_command(path: Path):
+        return [
+            "ffmpeg",
+            "-loglevel",
+            "error",
+            "-re",
+            "-i",
+            str(path.resolve()),
+            "-f",
+            "rawvideo",
+            "-pix_fmt",
+            "bgr24",
+            "-",
+        ]
+
+    @staticmethod
+    def probe_video_resolution(src: str) -> tuple[int, int]:
+        cmd = [
+            "ffprobe",
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-show_entries",
+            "stream=width,height",
+            "-of",
+            "json",
+            src,
+        ]
+
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+        )
+
+        info = json.loads(result.stdout)
+        stream_info = info["streams"][0]
+
+        return int(stream_info["width"]), int(stream_info["height"])
+
+    @staticmethod
+    def terminate_process(proc: subprocess.Popen):
+        if proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+
     def detect(self, src: Path, dest: Path, **kwargs):
-        cap = cv2.VideoCapture(str(src))
-        fps = cap.get(cv2.CAP_PROP_FPS)
-        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        input_cmd = self.create_file_input_command(Path(src))
+        width, height = self.probe_video_resolution(str(src))
+        output_cmd = self.create_h264_output_command(width, height, dest)
 
-        fourcc = cv2.VideoWriter.fourcc(*"avc1")
-        out = cv2.VideoWriter(str(dest), fourcc, fps, (width, height))
+        # Input, Output 스트림
+        ffmpeg_in = subprocess.Popen(
+            input_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+        )
+        ffmpeg_out = subprocess.Popen(
+            output_cmd, stdin=subprocess.PIPE, stderr=subprocess.DEVNULL
+        )
+        assert ffmpeg_in.stdout is not None
+        assert ffmpeg_out.stdin is not None
 
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if not ret:
-                break
+        frame_size = width * height * 3
 
-            results = self.model(frame, **kwargs)
-            out.write(results[0].plot())
+        try:
+            while True:
+                raw = ffmpeg_in.stdout.read(frame_size)
+                if not raw:
+                    break
 
-        out.release()
-        cap.release()
+                frame = np.frombuffer(raw, np.uint8).reshape((height, width, 3))
+
+                results = self.model(frame, **kwargs)
+                annotated_frame = results[0].plot()
+
+                ffmpeg_out.stdin.write(annotated_frame.tobytes())
+                ffmpeg_out.stdin.flush()
+            ffmpeg_out.stdin.close()
+        finally:
+            self.terminate_process(ffmpeg_in)
+            self.terminate_process(ffmpeg_out)
 
 
 class VideoDetectorYolo11n(BaseVideoDetector):
