@@ -14,14 +14,14 @@ ENV UV_COMPILE_BYTECODE=1
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --group prod --locked --no-install-project --no-editable
+    uv sync --group prod --extra cu126 --locked --no-install-project --no-editable
 
 # Copy the project into the intermediate image
 COPY . /app
 
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --group prod --locked --no-editable
+    uv sync --group prod --extra cu126 --locked --no-editable
 
 FROM python:3.14-slim
 
