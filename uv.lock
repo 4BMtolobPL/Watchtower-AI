@@ -2,11 +2,31 @@ version = 1
 revision = 3
 requires-python = ">=3.14"
 resolution-markers = [
-    "sys_platform == 'win32'",
-    "sys_platform == 'darwin'",
-    "platform_machine == 'aarch64' and sys_platform == 'linux'",
-    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "sys_platform == 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'darwin' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'darwin' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'win32' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "sys_platform == 'darwin' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128'",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')",
 ]
+conflicts = [[
+    { package = "watchtower-ai", extra = "cpu" },
+    { package = "watchtower-ai", extra = "cu126" },
+    { package = "watchtower-ai", extra = "cu128" },
+]]
 
 [[package]]
 name = "alembic"
@@ -208,14 +228,14 @@ redis = [
 
 [[package]]
 name = "celery-types"
-version = "0.23.0"
+version = "0.24.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e9/d1/0823e71c281e4ad0044e278cf1577d1a68e05f2809424bf94e1614925c5d/celery_types-0.23.0.tar.gz", hash = "sha256:402ed0555aea3cd5e1e6248f4632e4f18eec8edb2435173f9e6dc08449fa101e", size = 31479, upload-time = "2025-03-03T23:56:51.547Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/72/25/2276a1f00f8ab9fc88128c939333933a24db7df1d75aa57ecc27b7dd3a22/celery_types-0.24.0.tar.gz", hash = "sha256:c93fbcd0b04a9e9c2f55d5540aca4aa1ea4cc06a870c0c8dee5062fdd59663fe", size = 33148, upload-time = "2025-12-23T17:16:30.847Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6f/8b/92bb54dd74d145221c3854aa245c84f4dc04cc9366147496182cec8e88e3/celery_types-0.23.0-py3-none-any.whl", hash = "sha256:0cc495b8d7729891b7e070d0ec8d4906d2373209656a6e8b8276fe1ed306af9a", size = 50189, upload-time = "2025-03-03T23:56:50.458Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/7e/3252cba5f5c9a65a3f52a69734d8e51e023db8981022b503e8183cf0225e/celery_types-0.24.0-py3-none-any.whl", hash = "sha256:a21e04681e68719a208335e556a79909da4be9c5e0d6d2fd0dd4c5615954b3fd", size = 60473, upload-time = "2025-12-23T17:16:29.89Z" },
 ]
 
 [[package]]
@@ -232,7 +252,7 @@ name = "cffi"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser", marker = "implementation_name != 'PyPy'" },
+    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/eb/56/b1ba7935a17738ae8453301356628e8147c79dbb825bcbc73dc7401f9846/cffi-2.0.0.tar.gz", hash = "sha256:44d1b5909021139fe36001ae048dbdde8214afa20200eda0f64c068cac5d5529", size = 523588, upload-time = "2025-09-08T23:24:04.541Z" }
 wheels = [
@@ -290,7 +310,7 @@ name = "click"
 version = "8.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz", hash = "sha256:12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a", size = 295065, upload-time = "2025-11-15T20:45:42.706Z" }
 wheels = [
@@ -381,7 +401,7 @@ name = "cryptography"
 version = "46.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "platform_python_implementation != 'PyPy'" },
+    { name = "cffi", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9f/33/c00162f49c0e2fe8064a62cb92b93e50c74a72bc370ab92f86112b33ff62/cryptography-46.0.3.tar.gz", hash = "sha256:a8b17438104fed022ce745b362294d9ce35b4c2e45c1d958ad4a4b019285f4a1", size = 749258, upload-time = "2025-10-15T23:18:31.74Z" }
 wheels = [
@@ -645,13 +665,20 @@ name = "gevent"
 version = "25.9.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "platform_python_implementation == 'CPython' and sys_platform == 'win32'" },
-    { name = "greenlet", marker = "platform_python_implementation == 'CPython' and sys_platform == 'win32'" },
-    { name = "zope-event", marker = "sys_platform == 'win32'" },
-    { name = "zope-interface", marker = "sys_platform == 'win32'" },
+    { name = "cffi", marker = "(platform_python_implementation == 'CPython' and sys_platform == 'win32') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "greenlet", marker = "platform_python_implementation == 'CPython' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "zope-event" },
+    { name = "zope-interface" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9e/48/b3ef2673ffb940f980966694e40d6d32560f3ffa284ecaeb5ea3a90a6d3f/gevent-25.9.1.tar.gz", hash = "sha256:adf9cd552de44a4e6754c51ff2e78d9193b7fa6eab123db9578a210e657235dd", size = 5059025, upload-time = "2025-09-17T16:15:34.528Z" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/1a/948f8167b2cdce573cf01cec07afc64d0456dc134b07900b26ac7018b37e/gevent-25.9.1-cp314-cp314-macosx_11_0_universal2.whl", hash = "sha256:1a3fe4ea1c312dbf6b375b416925036fe79a40054e6bf6248ee46526ea628be1", size = 2982934, upload-time = "2025-09-17T14:54:11.302Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/ec/726b146d1d3aad82e03d2e1e1507048ab6072f906e83f97f40667866e582/gevent-25.9.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:0adb937f13e5fb90cca2edf66d8d7e99d62a299687400ce2edee3f3504009356", size = 1813982, upload-time = "2025-09-17T15:41:28.506Z" },
+    { url = "https://files.pythonhosted.org/packages/35/5d/5f83f17162301662bd1ce702f8a736a8a8cac7b7a35e1d8b9866938d1f9d/gevent-25.9.1-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl", hash = "sha256:427f869a2050a4202d93cf7fd6ab5cffb06d3e9113c10c967b6e2a0d45237cb8", size = 1894902, upload-time = "2025-09-17T15:49:03.702Z" },
+    { url = "https://files.pythonhosted.org/packages/83/cd/cf5e74e353f60dab357829069ffc300a7bb414c761f52cf8c0c6e9728b8d/gevent-25.9.1-cp314-cp314-manylinux2014_s390x.manylinux_2_17_s390x.whl", hash = "sha256:c049880175e8c93124188f9d926af0a62826a3b81aa6d3074928345f8238279e", size = 1861792, upload-time = "2025-09-17T15:49:23.279Z" },
+    { url = "https://files.pythonhosted.org/packages/dd/65/b9a4526d4a4edce26fe4b3b993914ec9dc64baabad625a3101e51adb17f3/gevent-25.9.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:b5a67a0974ad9f24721034d1e008856111e0535f1541499f72a733a73d658d1c", size = 2113215, upload-time = "2025-09-17T15:15:16.34Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/be/7d35731dfaf8370795b606e515d964a0967e129db76ea7873f552045dd39/gevent-25.9.1-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:1d0f5d8d73f97e24ea8d24d8be0f51e0cf7c54b8021c1fddb580bf239474690f", size = 1833449, upload-time = "2025-09-17T15:52:43.75Z" },
+    { url = "https://files.pythonhosted.org/packages/65/58/7bc52544ea5e63af88c4a26c90776feb42551b7555a1c89c20069c168a3f/gevent-25.9.1-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:ddd3ff26e5c4240d3fbf5516c2d9d5f2a998ef87cfb73e1429cfaeaaec860fa6", size = 2176034, upload-time = "2025-09-17T15:24:15.676Z" },
     { url = "https://files.pythonhosted.org/packages/c2/69/a7c4ba2ffbc7c7dbf6d8b4f5d0f0a421f7815d229f4909854266c445a3d4/gevent-25.9.1-cp314-cp314-win_amd64.whl", hash = "sha256:bb63c0d6cb9950cc94036a4995b9cc4667b8915366613449236970f4394f94d7", size = 1703019, upload-time = "2025-09-17T19:30:55.272Z" },
 ]
 
@@ -920,34 +947,126 @@ wheels = [
 
 [[package]]
 name = "nvidia-cublas-cu12"
+version = "12.6.4.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/af/eb/ff4b8c503fa1f1796679dce648854d58751982426e4e4b37d6fce49d259c/nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:08ed2686e9875d01b58e3cb379c6896df8e76c75e0d4a7f7dace3d7b6d9ef8eb", size = 393138322, upload-time = "2024-11-20T17:40:25.65Z" },
+    { url = "https://files.pythonhosted.org/packages/97/0d/f1f0cadbf69d5b9ef2e4f744c9466cb0a850741d08350736dfdb4aa89569/nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:235f728d6e2a409eddf1df58d5b0921cf80cfa9e72b9f2775ccb7b4a87984668", size = 390794615, upload-time = "2024-11-20T17:39:52.715Z" },
+    { url = "https://files.pythonhosted.org/packages/84/f7/985e9bdbe3e0ac9298fcc8cfa51a392862a46a0ffaccbbd56939b62a9c83/nvidia_cublas_cu12-12.6.4.1-py3-none-win_amd64.whl", hash = "sha256:9e4fa264f4d8a4eb0cdbd34beadc029f453b3bafae02401e999cf3d5a5af75f8", size = 434535301, upload-time = "2024-11-20T17:50:41.681Z" },
+]
+
+[[package]]
+name = "nvidia-cublas-cu12"
 version = "12.8.4.1"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/29/99/db44d685f0e257ff0e213ade1964fc459b4a690a73293220e98feb3307cf/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:b86f6dd8935884615a0683b663891d43781b819ac4f2ba2b0c9604676af346d0", size = 590537124, upload-time = "2025-03-07T01:43:53.556Z" },
     { url = "https://files.pythonhosted.org/packages/dc/61/e24b560ab2e2eaeb3c839129175fb330dfcfc29e5203196e5541a4c44682/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:8ac4e771d5a348c551b2a426eda6193c19aa630236b418086020df5ba9667142", size = 594346921, upload-time = "2025-03-07T01:44:31.254Z" },
+    { url = "https://files.pythonhosted.org/packages/70/61/7d7b3c70186fb651d0fbd35b01dbfc8e755f69fd58f817f3d0f642df20c3/nvidia_cublas_cu12-12.8.4.1-py3-none-win_amd64.whl", hash = "sha256:47e9b82132fa8d2b4944e708049229601448aaad7e6f296f630f2d1a32de35af", size = 567544208, upload-time = "2025-03-07T01:53:30.535Z" },
+]
+
+[[package]]
+name = "nvidia-cuda-cupti-cu12"
+version = "12.6.80"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e6/8b/2f6230cb715646c3a9425636e513227ce5c93c4d65823a734f4bb86d43c3/nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:166ee35a3ff1587f2490364f90eeeb8da06cd867bd5b701bf7f9a02b78bc63fc", size = 8236764, upload-time = "2024-11-20T17:35:41.03Z" },
+    { url = "https://files.pythonhosted.org/packages/25/0f/acb326ac8fd26e13c799e0b4f3b2751543e1834f04d62e729485872198d4/nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_aarch64.whl", hash = "sha256:358b4a1d35370353d52e12f0a7d1769fc01ff74a191689d3870b2123156184c4", size = 8236756, upload-time = "2024-10-01T16:57:45.507Z" },
+    { url = "https://files.pythonhosted.org/packages/49/60/7b6497946d74bcf1de852a21824d63baad12cd417db4195fc1bfe59db953/nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:6768bad6cab4f19e8292125e5f1ac8aa7d1718704012a0e3272a6f61c4bce132", size = 8917980, upload-time = "2024-11-20T17:36:04.019Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/24/120ee57b218d9952c379d1e026c4479c9ece9997a4fb46303611ee48f038/nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_x86_64.whl", hash = "sha256:a3eff6cdfcc6a4c35db968a06fcadb061cbc7d6dde548609a941ff8701b98b73", size = 8917972, upload-time = "2024-10-01T16:58:06.036Z" },
+    { url = "https://files.pythonhosted.org/packages/1c/81/7796f096afaf726796b1b648f3bc80cafc61fe7f77f44a483c89e6c5ef34/nvidia_cuda_cupti_cu12-12.6.80-py3-none-win_amd64.whl", hash = "sha256:bbe6ae76e83ce5251b56e8c8e61a964f757175682bbad058b170b136266ab00a", size = 5724175, upload-time = "2024-10-01T17:09:47.955Z" },
 ]
 
 [[package]]
 name = "nvidia-cuda-cupti-cu12"
 version = "12.8.90"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/d5/1f/b3bd73445e5cb342727fd24fe1f7b748f690b460acadc27ea22f904502c8/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:4412396548808ddfed3f17a467b104ba7751e6b58678a4b840675c56d21cf7ed", size = 9533318, upload-time = "2025-03-07T01:40:10.421Z" },
     { url = "https://files.pythonhosted.org/packages/f8/02/2adcaa145158bf1a8295d83591d22e4103dbfd821bcaf6f3f53151ca4ffa/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ea0cb07ebda26bb9b29ba82cda34849e73c166c18162d3913575b0c9db9a6182", size = 10248621, upload-time = "2025-03-07T01:40:21.213Z" },
+    { url = "https://files.pythonhosted.org/packages/41/bc/83f5426095d93694ae39fe1311431b5d5a9bb82e48bf0dd8e19be2765942/nvidia_cuda_cupti_cu12-12.8.90-py3-none-win_amd64.whl", hash = "sha256:bb479dcdf7e6d4f8b0b01b115260399bf34154a1a2e9fe11c85c517d87efd98e", size = 7015759, upload-time = "2025-03-07T01:51:11.355Z" },
+]
+
+[[package]]
+name = "nvidia-cuda-nvrtc-cu12"
+version = "12.6.77"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f4/2f/72df534873235983cc0a5371c3661bebef7c4682760c275590b972c7b0f9/nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:5847f1d6e5b757f1d2b3991a01082a44aad6f10ab3c5c0213fa3e25bddc25a13", size = 23162955, upload-time = "2024-10-01T16:59:50.922Z" },
+    { url = "https://files.pythonhosted.org/packages/75/2e/46030320b5a80661e88039f59060d1790298b4718944a65a7f2aeda3d9e9/nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:35b0cc6ee3a9636d5409133e79273ce1f3fd087abb0532d2d2e8fff1fe9efc53", size = 23650380, upload-time = "2024-10-01T17:00:14.643Z" },
+    { url = "https://files.pythonhosted.org/packages/f5/46/d3a1cdda8bb113c80f43a0a6f3a853356d487b830f3483f92d49ce87fa55/nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:f7007dbd914c56bd80ea31bc43e8e149da38f68158f423ba845fc3292684e45a", size = 39026742, upload-time = "2024-10-01T17:10:49.058Z" },
 ]
 
 [[package]]
 name = "nvidia-cuda-nvrtc-cu12"
 version = "12.8.93"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/05/6b/32f747947df2da6994e999492ab306a903659555dddc0fbdeb9d71f75e52/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl", hash = "sha256:a7756528852ef889772a84c6cd89d41dfa74667e24cca16bb31f8f061e3e9994", size = 88040029, upload-time = "2025-03-07T01:42:13.562Z" },
+    { url = "https://files.pythonhosted.org/packages/eb/d1/e50d0acaab360482034b84b6e27ee83c6738f7d32182b987f9c7a4e32962/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:fc1fec1e1637854b4c0a65fb9a8346b51dd9ee69e61ebaccc82058441f15bce8", size = 43106076, upload-time = "2025-03-07T01:41:59.817Z" },
+    { url = "https://files.pythonhosted.org/packages/45/51/52a3d84baa2136cc8df15500ad731d74d3a1114d4c123e043cb608d4a32b/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-win_amd64.whl", hash = "sha256:7a4b6b2904850fe78e0bd179c4b655c404d4bb799ef03ddc60804247099ae909", size = 73586838, upload-time = "2025-03-07T01:52:13.483Z" },
+]
+
+[[package]]
+name = "nvidia-cuda-runtime-cu12"
+version = "12.6.77"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/ea/590b2ac00d772a8abd1c387a92b46486d2679ca6622fd25c18ff76265663/nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:6116fad3e049e04791c0256a9778c16237837c08b27ed8c8401e2e45de8d60cd", size = 908052, upload-time = "2024-11-20T17:35:19.905Z" },
+    { url = "https://files.pythonhosted.org/packages/b7/3d/159023799677126e20c8fd580cca09eeb28d5c5a624adc7f793b9aa8bbfa/nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:d461264ecb429c84c8879a7153499ddc7b19b5f8d84c204307491989a365588e", size = 908040, upload-time = "2024-10-01T16:57:22.221Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/23/e717c5ac26d26cf39a27fbc076240fad2e3b817e5889d671b67f4f9f49c5/nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ba3b56a4f896141e25e19ab287cd71e52a6a0f4b29d0d31609f60e3b4d5219b7", size = 897690, upload-time = "2024-11-20T17:35:30.697Z" },
+    { url = "https://files.pythonhosted.org/packages/f0/62/65c05e161eeddbafeca24dc461f47de550d9fa8a7e04eb213e32b55cfd99/nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:a84d15d5e1da416dd4774cb42edf5e954a3e60cc945698dc1d5be02321c44dc8", size = 897678, upload-time = "2024-10-01T16:57:33.821Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/76/4c80fa138333cc975743fd0687a745fccb30d167f906f13c1c7f9a85e5ea/nvidia_cuda_runtime_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:86c58044c824bf3c173c49a2dbc7a6c8b53cb4e4dca50068be0bf64e9dab3f7f", size = 891773, upload-time = "2024-10-01T17:09:26.362Z" },
 ]
 
 [[package]]
 name = "nvidia-cuda-runtime-cu12"
 version = "12.8.90"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/75/f865a3b236e4647605ea34cc450900854ba123834a5f1598e160b9530c3a/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:52bf7bbee900262ffefe5e9d5a2a69a30d97e2bc5bb6cc866688caa976966e3d", size = 965265, upload-time = "2025-03-07T01:39:43.533Z" },
     { url = "https://files.pythonhosted.org/packages/0d/9b/a997b638fcd068ad6e4d53b8551a7d30fe8b404d6f1804abf1df69838932/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:adade8dcbd0edf427b7204d480d6066d33902cab2a4707dcfc48a2d0fd44ab90", size = 954765, upload-time = "2025-03-07T01:40:01.615Z" },
+    { url = "https://files.pythonhosted.org/packages/30/a5/a515b7600ad361ea14bfa13fb4d6687abf500adc270f19e89849c0590492/nvidia_cuda_runtime_cu12-12.8.90-py3-none-win_amd64.whl", hash = "sha256:c0c6027f01505bfed6c3b21ec546f69c687689aad5f1a377554bc6ca4aa993a8", size = 944318, upload-time = "2025-03-07T01:51:01.794Z" },
 ]
 
 [[package]]
@@ -955,61 +1074,191 @@ name = "nvidia-cudnn-cu12"
 version = "9.10.2.21"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
+    { name = "nvidia-cublas-cu12", version = "12.6.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cublas-cu12", version = "12.8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/fa/41/e79269ce215c857c935fd86bcfe91a451a584dfc27f1e068f568b9ad1ab7/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:c9132cc3f8958447b4910a1720036d9eff5928cc3179b0a51fb6d167c6cc87d8", size = 705026878, upload-time = "2025-06-06T21:52:51.348Z" },
     { url = "https://files.pythonhosted.org/packages/ba/51/e123d997aa098c61d029f76663dedbfb9bc8dcf8c60cbd6adbe42f76d049/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:949452be657fa16687d0930933f032835951ef0892b37d2d53824d1a84dc97a8", size = 706758467, upload-time = "2025-06-06T21:54:08.597Z" },
+    { url = "https://files.pythonhosted.org/packages/3d/90/0bd6e586701b3a890fd38aa71c387dab4883d619d6e5ad912ccbd05bfd67/nvidia_cudnn_cu12-9.10.2.21-py3-none-win_amd64.whl", hash = "sha256:c6288de7d63e6cf62988f0923f96dc339cea362decb1bf5b3141883392a7d65e", size = 692992268, upload-time = "2025-06-06T21:55:18.114Z" },
+]
+
+[[package]]
+name = "nvidia-cufft-cu12"
+version = "11.3.0.4"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "nvidia-nvjitlink-cu12", version = "12.6.85", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1f/37/c50d2b2f2c07e146776389e3080f4faf70bcc4fa6e19d65bb54ca174ebc3/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d16079550df460376455cba121db6564089176d9bac9e4f360493ca4741b22a6", size = 200164144, upload-time = "2024-11-20T17:40:58.288Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/f5/188566814b7339e893f8d210d3a5332352b1409815908dad6a363dcceac1/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_aarch64.whl", hash = "sha256:8510990de9f96c803a051822618d42bf6cb8f069ff3f48d93a8486efdacb48fb", size = 200164135, upload-time = "2024-10-01T17:03:24.212Z" },
+    { url = "https://files.pythonhosted.org/packages/8f/16/73727675941ab8e6ffd86ca3a4b7b47065edcca7a997920b831f8147c99d/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ccba62eb9cef5559abd5e0d54ceed2d9934030f51163df018532142a8ec533e5", size = 200221632, upload-time = "2024-11-20T17:41:32.357Z" },
+    { url = "https://files.pythonhosted.org/packages/60/de/99ec247a07ea40c969d904fc14f3a356b3e2a704121675b75c366b694ee1/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_x86_64.whl", hash = "sha256:768160ac89f6f7b459bee747e8d175dbf53619cfe74b2a5636264163138013ca", size = 200221622, upload-time = "2024-10-01T17:03:58.79Z" },
+    { url = "https://files.pythonhosted.org/packages/b4/38/36fd800cec8f6e89b7c1576edaaf8076e69ec631644cdbc1b5f2e2b5a9df/nvidia_cufft_cu12-11.3.0.4-py3-none-win_amd64.whl", hash = "sha256:6048ebddfb90d09d2707efb1fd78d4e3a77cb3ae4dc60e19aab6be0ece2ae464", size = 199356881, upload-time = "2024-10-01T17:13:01.861Z" },
 ]
 
 [[package]]
 name = "nvidia-cufft-cu12"
 version = "11.3.3.83"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/60/bc/7771846d3a0272026c416fbb7e5f4c1f146d6d80704534d0b187dd6f4800/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:848ef7224d6305cdb2a4df928759dca7b1201874787083b6e7550dd6765ce69a", size = 193109211, upload-time = "2025-03-07T01:44:56.873Z" },
     { url = "https://files.pythonhosted.org/packages/1f/13/ee4e00f30e676b66ae65b4f08cb5bcbb8392c03f54f2d5413ea99a5d1c80/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:4d2dd21ec0b88cf61b62e6b43564355e5222e4a3fb394cac0db101f2dd0d4f74", size = 193118695, upload-time = "2025-03-07T01:45:27.821Z" },
+    { url = "https://files.pythonhosted.org/packages/7d/ec/ce1629f1e478bb5ccd208986b5f9e0316a78538dd6ab1d0484f012f8e2a1/nvidia_cufft_cu12-11.3.3.83-py3-none-win_amd64.whl", hash = "sha256:7a64a98ef2a7c47f905aaf8931b69a3a43f27c55530c698bb2ed7c75c0b42cb7", size = 192216559, upload-time = "2025-03-07T01:53:57.106Z" },
+]
+
+[[package]]
+name = "nvidia-cufile-cu12"
+version = "1.11.1.6"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b2/66/cc9876340ac68ae71b15c743ddb13f8b30d5244af344ec8322b449e35426/nvidia_cufile_cu12-1.11.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:cc23469d1c7e52ce6c1d55253273d32c565dd22068647f3aa59b3c6b005bf159", size = 1142103, upload-time = "2024-11-20T17:42:11.83Z" },
+    { url = "https://files.pythonhosted.org/packages/17/bf/cc834147263b929229ce4aadd62869f0b195e98569d4c28b23edc72b85d9/nvidia_cufile_cu12-1.11.1.6-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:8f57a0051dcf2543f6dc2b98a98cb2719c37d3cee1baba8965d57f3bbc90d4db", size = 1066155, upload-time = "2024-11-20T17:41:49.376Z" },
 ]
 
 [[package]]
 name = "nvidia-cufile-cu12"
 version = "1.13.1.3"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/bb/fe/1bcba1dfbfb8d01be8d93f07bfc502c93fa23afa6fd5ab3fc7c1df71038a/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:1d069003be650e131b21c932ec3d8969c1715379251f8d23a1860554b1cb24fc", size = 1197834, upload-time = "2025-03-07T01:45:50.723Z" },
+    { url = "https://files.pythonhosted.org/packages/1e/f5/5607710447a6fe9fd9b3283956fceeee8a06cda1d2f56ce31371f595db2a/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:4beb6d4cce47c1a0f1013d72e02b0994730359e17801d395bdcbf20cfb3bb00a", size = 1120705, upload-time = "2025-03-07T01:45:41.434Z" },
+]
+
+[[package]]
+name = "nvidia-curand-cu12"
+version = "10.3.7.77"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/42/ac/36543605358a355632f1a6faa3e2d5dfb91eab1e4bc7d552040e0383c335/nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:6e82df077060ea28e37f48a3ec442a8f47690c7499bff392a5938614b56c98d8", size = 56289881, upload-time = "2024-10-01T17:04:18.981Z" },
+    { url = "https://files.pythonhosted.org/packages/73/1b/44a01c4e70933637c93e6e1a8063d1e998b50213a6b65ac5a9169c47e98e/nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:a42cd1344297f70b9e39a1e4f467a4e1c10f1da54ff7a85c12197f6c652c8bdf", size = 56279010, upload-time = "2024-11-20T17:42:50.958Z" },
+    { url = "https://files.pythonhosted.org/packages/4a/aa/2c7ff0b5ee02eaef890c0ce7d4f74bc30901871c5e45dee1ae6d0083cd80/nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:99f1a32f1ac2bd134897fc7a203f779303261268a65762a623bf30cc9fe79117", size = 56279000, upload-time = "2024-10-01T17:04:45.274Z" },
+    { url = "https://files.pythonhosted.org/packages/a6/02/5362a9396f23f7de1dd8a64369e87c85ffff8216fc8194ace0fa45ba27a5/nvidia_curand_cu12-10.3.7.77-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:7b2ed8e95595c3591d984ea3603dd66fe6ce6812b886d59049988a712ed06b6e", size = 56289882, upload-time = "2024-11-20T17:42:25.222Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/a8/0cd0cec757bd4b4b4ef150fca62ec064db7d08a291dced835a0be7d2c147/nvidia_curand_cu12-10.3.7.77-py3-none-win_amd64.whl", hash = "sha256:6d6d935ffba0f3d439b7cd968192ff068fafd9018dbf1b85b37261b13cfc9905", size = 55783873, upload-time = "2024-10-01T17:13:30.377Z" },
 ]
 
 [[package]]
 name = "nvidia-curand-cu12"
 version = "10.3.9.90"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/45/5e/92aa15eca622a388b80fbf8375d4760738df6285b1e92c43d37390a33a9a/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:dfab99248034673b779bc6decafdc3404a8a6f502462201f2f31f11354204acd", size = 63625754, upload-time = "2025-03-07T01:46:10.735Z" },
     { url = "https://files.pythonhosted.org/packages/fb/aa/6584b56dc84ebe9cf93226a5cde4d99080c8e90ab40f0c27bda7a0f29aa1/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:b32331d4f4df5d6eefa0554c565b626c7216f87a06a4f56fab27c3b68a830ec9", size = 63619976, upload-time = "2025-03-07T01:46:23.323Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/75/70c05b2f3ed5be3bb30b7102b6eb78e100da4bbf6944fd6725c012831cab/nvidia_curand_cu12-10.3.9.90-py3-none-win_amd64.whl", hash = "sha256:f149a8ca457277da854f89cf282d6ef43176861926c7ac85b2a0fbd237c587ec", size = 62765309, upload-time = "2025-03-07T01:54:20.478Z" },
+]
+
+[[package]]
+name = "nvidia-cusolver-cu12"
+version = "11.7.1.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "nvidia-cublas-cu12", version = "12.6.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparse-cu12", version = "12.5.4.2", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.6.85", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/93/17/dbe1aa865e4fdc7b6d4d0dd308fdd5aaab60f939abfc0ea1954eac4fb113/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:0ce237ef60acde1efc457335a2ddadfd7610b892d94efee7b776c64bb1cac9e0", size = 157833628, upload-time = "2024-10-01T17:05:05.591Z" },
+    { url = "https://files.pythonhosted.org/packages/f0/6e/c2cf12c9ff8b872e92b4a5740701e51ff17689c4d726fca91875b07f655d/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e9e49843a7707e42022babb9bcfa33c29857a93b88020c4e4434656a655b698c", size = 158229790, upload-time = "2024-11-20T17:43:43.211Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/81/baba53585da791d043c10084cf9553e074548408e04ae884cfe9193bd484/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_x86_64.whl", hash = "sha256:6cf28f17f64107a0c4d7802be5ff5537b2130bfc112f25d5a30df227058ca0e6", size = 158229780, upload-time = "2024-10-01T17:05:39.875Z" },
+    { url = "https://files.pythonhosted.org/packages/7c/5f/07d0ba3b7f19be5a5ec32a8679fc9384cfd9fc6c869825e93be9f28d6690/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:dbbe4fc38ec1289c7e5230e16248365e375c3673c9c8bac5796e2e20db07f56e", size = 157833630, upload-time = "2024-11-20T17:43:16.77Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/53/fff50a0808df7113d77e3bbc7c2b7eaed6f57d5eb80fbe93ead2aea1e09a/nvidia_cusolver_cu12-11.7.1.2-py3-none-win_amd64.whl", hash = "sha256:6813f9d8073f555444a8705f3ab0296d3e1cb37a16d694c5fc8b862a0d8706d7", size = 149287877, upload-time = "2024-10-01T17:13:49.804Z" },
 ]
 
 [[package]]
 name = "nvidia-cusolver-cu12"
 version = "11.7.3.90"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
-    { name = "nvidia-cusparse-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
+    { name = "nvidia-cublas-cu12", version = "12.8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparse-cu12", version = "12.5.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/c8/32/f7cd6ce8a7690544d084ea21c26e910a97e077c9b7f07bf5de623ee19981/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:db9ed69dbef9715071232caa9b69c52ac7de3a95773c2db65bdba85916e4e5c0", size = 267229841, upload-time = "2025-03-07T01:46:54.356Z" },
     { url = "https://files.pythonhosted.org/packages/85/48/9a13d2975803e8cf2777d5ed57b87a0b6ca2cc795f9a4f59796a910bfb80/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:4376c11ad263152bd50ea295c05370360776f8c3427b30991df774f9fb26c450", size = 267506905, upload-time = "2025-03-07T01:47:16.273Z" },
+    { url = "https://files.pythonhosted.org/packages/13/c0/76ca8551b8a84146ffa189fec81c26d04adba4bc0dbe09cd6e6fd9b7de04/nvidia_cusolver_cu12-11.7.3.90-py3-none-win_amd64.whl", hash = "sha256:4a550db115fcabc4d495eb7d39ac8b58d4ab5d8e63274d3754df1c0ad6a22d34", size = 256720438, upload-time = "2025-03-07T01:54:39.898Z" },
+]
+
+[[package]]
+name = "nvidia-cusparse-cu12"
+version = "12.5.4.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "nvidia-nvjitlink-cu12", version = "12.6.85", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/eb/6681efd0aa7df96b4f8067b3ce7246833dd36830bb4cec8896182773db7d/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d25b62fb18751758fe3c93a4a08eff08effedfe4edf1c6bb5afd0890fe88f887", size = 216451147, upload-time = "2024-11-20T17:44:18.055Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/56/3af21e43014eb40134dea004e8d0f1ef19d9596a39e4d497d5a7de01669f/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:7aa32fa5470cf754f72d1116c7cbc300b4e638d3ae5304cfa4a638a5b87161b1", size = 216451135, upload-time = "2024-10-01T17:06:03.826Z" },
+    { url = "https://files.pythonhosted.org/packages/06/1e/b8b7c2f4099a37b96af5c9bb158632ea9e5d9d27d7391d7eb8fc45236674/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:7556d9eca156e18184b94947ade0fba5bb47d69cec46bf8660fd2c71a4b48b73", size = 216561367, upload-time = "2024-11-20T17:44:54.824Z" },
+    { url = "https://files.pythonhosted.org/packages/43/ac/64c4316ba163e8217a99680c7605f779accffc6a4bcd0c778c12948d3707/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_x86_64.whl", hash = "sha256:23749a6571191a215cb74d1cdbff4a86e7b19f1200c071b3fcf844a5bea23a2f", size = 216561357, upload-time = "2024-10-01T17:06:29.861Z" },
+    { url = "https://files.pythonhosted.org/packages/45/ef/876ad8e4260e1128e6d4aac803d9d51baf3791ebdb4a9b8d9b8db032b4b0/nvidia_cusparse_cu12-12.5.4.2-py3-none-win_amd64.whl", hash = "sha256:4acb8c08855a26d737398cba8fb6f8f5045d93f82612b4cfd84645a2332ccf20", size = 213712630, upload-time = "2024-10-01T17:14:23.779Z" },
 ]
 
 [[package]]
 name = "nvidia-cusparse-cu12"
 version = "12.5.8.93"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'win32' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/bc/f7/cd777c4109681367721b00a106f491e0d0d15cfa1fd59672ce580ce42a97/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:9b6c161cb130be1a07a27ea6923df8141f3c295852f4b260c65f18f3e0a091dc", size = 288117129, upload-time = "2025-03-07T01:47:40.407Z" },
     { url = "https://files.pythonhosted.org/packages/c2/f5/e1854cb2f2bcd4280c44736c93550cc300ff4b8c95ebe370d0aa7d2b473d/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:1ec05d76bbbd8b61b06a80e1eaf8cf4959c3d4ce8e711b65ebd0443bb0ebb13b", size = 288216466, upload-time = "2025-03-07T01:48:13.779Z" },
+    { url = "https://files.pythonhosted.org/packages/62/07/f3b2ad63f8e3d257a599f422ae34eb565e70c41031aecefa3d18b62cabd1/nvidia_cusparse_cu12-12.5.8.93-py3-none-win_amd64.whl", hash = "sha256:9a33604331cb2cac199f2e7f5104dfbb8a5a898c367a53dfda9ff2acb6b6b4dd", size = 284937404, upload-time = "2025-03-07T01:55:07.742Z" },
 ]
 
 [[package]]
@@ -1017,7 +1266,9 @@ name = "nvidia-cusparselt-cu12"
 version = "0.7.1"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/73/b9/598f6ff36faaece4b3c50d26f50e38661499ff34346f00e057760b35cc9d/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_aarch64.whl", hash = "sha256:8878dce784d0fac90131b6817b607e803c36e629ba34dc5b433471382196b6a5", size = 283835557, upload-time = "2025-02-26T00:16:54.265Z" },
     { url = "https://files.pythonhosted.org/packages/56/79/12978b96bd44274fe38b5dde5cfb660b1d114f70a65ef962bcbbed99b549/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl", hash = "sha256:f1bb701d6b930d5a7cea44c19ceb973311500847f81b634d802b7b539dc55623", size = 287193691, upload-time = "2025-02-26T00:15:44.104Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/d8/a6b0d0d0c2435e9310f3e2bb0d9c9dd4c33daef86aa5f30b3681defd37ea/nvidia_cusparselt_cu12-0.7.1-py3-none-win_amd64.whl", hash = "sha256:f67fbb5831940ec829c9117b7f33807db9f9678dc2a617fbe781cac17b4e1075", size = 271020911, upload-time = "2025-02-26T00:14:47.204Z" },
 ]
 
 [[package]]
@@ -1025,15 +1276,38 @@ name = "nvidia-nccl-cu12"
 version = "2.27.5"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/1c/857979db0ef194ca5e21478a0612bcdbbe59458d7694361882279947b349/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:31432ad4d1fb1004eb0c56203dc9bc2178a1ba69d1d9e02d64a6938ab5e40e7a", size = 322400625, upload-time = "2025-06-26T04:11:04.496Z" },
     { url = "https://files.pythonhosted.org/packages/6e/89/f7a07dc961b60645dbbf42e80f2bc85ade7feb9a491b11a1e973aa00071f/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ad730cf15cb5d25fe849c6e6ca9eb5b76db16a80f13f425ac68d8e2e55624457", size = 322348229, upload-time = "2025-06-26T04:11:28.385Z" },
+]
+
+[[package]]
+name = "nvidia-nvjitlink-cu12"
+version = "12.6.85"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9d/d7/c5383e47c7e9bf1c99d5bd2a8c935af2b6d705ad831a7ec5c97db4d82f4f/nvidia_nvjitlink_cu12-12.6.85-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl", hash = "sha256:eedc36df9e88b682efe4309aa16b5b4e78c2407eac59e8c10a6a47535164369a", size = 19744971, upload-time = "2024-11-20T17:46:53.366Z" },
+    { url = "https://files.pythonhosted.org/packages/31/db/dc71113d441f208cdfe7ae10d4983884e13f464a6252450693365e166dcf/nvidia_nvjitlink_cu12-12.6.85-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:cf4eaa7d4b6b543ffd69d6abfb11efdeb2db48270d94dfd3a452c24150829e41", size = 19270338, upload-time = "2024-11-20T17:46:29.758Z" },
+    { url = "https://files.pythonhosted.org/packages/89/76/93c1467b1387387440a4d25102d86b7794535449b689f8e2dc22c1c8ff7f/nvidia_nvjitlink_cu12-12.6.85-py3-none-win_amd64.whl", hash = "sha256:e61120e52ed675747825cdd16febc6a0730537451d867ee58bee3853b1b13d1c", size = 161908572, upload-time = "2024-11-20T17:52:40.124Z" },
 ]
 
 [[package]]
 name = "nvidia-nvjitlink-cu12"
 version = "12.8.93"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f6/74/86a07f1d0f42998ca31312f998bd3b9a7eff7f52378f4f270c8679c77fb9/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl", hash = "sha256:81ff63371a7ebd6e6451970684f916be2eab07321b73c9d244dc2b4da7f73b88", size = 39254836, upload-time = "2025-03-07T01:49:55.661Z" },
+    { url = "https://files.pythonhosted.org/packages/2a/a2/8cee5da30d13430e87bf99bb33455d2724d0a4a9cb5d7926d80ccb96d008/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:adccd7161ace7261e01bb91e44e88da350895c270d23f744f0820c818b7229e7", size = 38386204, upload-time = "2025-03-07T01:49:43.612Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/d7/34f02dad2e30c31b10a51f6b04e025e5dd60e5f936af9045a9b858a05383/nvidia_nvjitlink_cu12-12.8.93-py3-none-win_amd64.whl", hash = "sha256:bd93fbeeee850917903583587f4fc3a4eafa022e34572251368238ab5e6bd67f", size = 268553710, upload-time = "2025-03-07T01:56:24.13Z" },
 ]
 
 [[package]]
@@ -1041,15 +1315,40 @@ name = "nvidia-nvshmem-cu12"
 version = "3.3.20"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/92/9d/3dd98852568fb845ec1f7902c90a22b240fe1cbabda411ccedf2fd737b7b/nvidia_nvshmem_cu12-3.3.20-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:0b0b960da3842212758e4fa4696b94f129090b30e5122fea3c5345916545cff0", size = 124484616, upload-time = "2025-08-04T20:24:59.172Z" },
     { url = "https://files.pythonhosted.org/packages/3b/6c/99acb2f9eb85c29fc6f3a7ac4dccfd992e22666dd08a642b303311326a97/nvidia_nvshmem_cu12-3.3.20-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:d00f26d3f9b2e3c3065be895e3059d6479ea5c638a3f38c9fec49b1b9dd7c1e5", size = 124657145, upload-time = "2025-08-04T20:25:19.995Z" },
+]
+
+[[package]]
+name = "nvidia-nvtx-cu12"
+version = "12.6.77"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b9/93/80f8a520375af9d7ee44571a6544653a176e53c2b8ccce85b97b83c2491b/nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:f44f8d86bb7d5629988d61c8d3ae61dddb2015dee142740536bc7481b022fe4b", size = 90549, upload-time = "2024-11-20T17:38:17.387Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/53/36e2fd6c7068997169b49ffc8c12d5af5e5ff209df6e1a2c4d373b3a638f/nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:adcaabb9d436c9761fca2b13959a2d237c5f9fd406c8e4b723c695409ff88059", size = 90539, upload-time = "2024-10-01T17:00:27.179Z" },
+    { url = "https://files.pythonhosted.org/packages/56/9a/fff8376f8e3d084cd1530e1ef7b879bb7d6d265620c95c1b322725c694f4/nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:b90bed3df379fa79afbd21be8e04a0314336b8ae16768b58f2d34cb1d04cd7d2", size = 89276, upload-time = "2024-11-20T17:38:27.621Z" },
+    { url = "https://files.pythonhosted.org/packages/9e/4e/0d0c945463719429b7bd21dece907ad0bde437a2ff12b9b12fee94722ab0/nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:6574241a3ec5fdc9334353ab8c479fe75841dbe8f4532a8fc97ce63503330ba1", size = 89265, upload-time = "2024-10-01T17:00:38.172Z" },
+    { url = "https://files.pythonhosted.org/packages/f7/cd/98a447919d4ed14d407ac82b14b0a0c9c1dbfe81099934b1fc3bfd1e6316/nvidia_nvtx_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:2fb11a4af04a5e6c84073e6404d26588a34afd35379f0855a99797897efa75c0", size = 56434, upload-time = "2024-10-01T17:11:13.124Z" },
 ]
 
 [[package]]
 name = "nvidia-nvtx-cu12"
 version = "12.8.90"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/c0/1b303feea90d296f6176f32a2a70b5ef230f9bdeb3a72bddb0dc922dc137/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d7ad891da111ebafbf7e015d34879f7112832fc239ff0d7d776b6cb685274615", size = 91161, upload-time = "2025-03-07T01:42:23.922Z" },
     { url = "https://files.pythonhosted.org/packages/a2/eb/86626c1bbc2edb86323022371c39aa48df6fd8b0a1647bc274577f72e90b/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:5b17e2001cc0d751a5bc2c6ec6d26ad95913324a4adb86788c944f8ce9ba441f", size = 89954, upload-time = "2025-03-07T01:42:44.131Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/99/4c9c0c329bf9fc125008c3b54c7c94c0023518d06fc025ae36431375e1fe/nvidia_nvtx_cu12-12.8.90-py3-none-win_amd64.whl", hash = "sha256:619c8304aedc69f02ea82dd244541a83c3d9d40993381b3b590f1adaed3db41e", size = 56492, upload-time = "2025-03-07T01:52:24.69Z" },
 ]
 
 [[package]]
@@ -1365,7 +1664,7 @@ name = "sqlalchemy"
 version = "2.0.44"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "greenlet", marker = "platform_machine == 'AMD64' or platform_machine == 'WIN32' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'ppc64le' or platform_machine == 'win32' or platform_machine == 'x86_64'" },
+    { name = "greenlet", marker = "platform_machine == 'AMD64' or platform_machine == 'WIN32' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'ppc64le' or platform_machine == 'win32' or platform_machine == 'x86_64' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f0/f2/840d7b9496825333f532d2e3976b8eadbf52034178aac53630d09fe6e1ef/sqlalchemy-2.0.44.tar.gz", hash = "sha256:0ae7454e1ab1d780aee69fd2aae7d6b8670a581d8847f2d1e0f7ddfbf47e5a22", size = 9819830, upload-time = "2025-10-10T14:39:12.935Z" }
@@ -1388,31 +1687,42 @@ wheels = [
 [[package]]
 name = "torch"
 version = "2.9.1"
-source = { registry = "https://pypi.org/simple" }
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "sys_platform == 'darwin'",
+]
 dependencies = [
-    { name = "filelock" },
-    { name = "fsspec" },
-    { name = "jinja2" },
-    { name = "networkx" },
-    { name = "nvidia-cublas-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cuda-cupti-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cuda-nvrtc-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cuda-runtime-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cudnn-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cufft-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cufile-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-curand-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cusolver-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cusparse-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-cusparselt-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-nccl-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-nvjitlink-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-nvshmem-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "nvidia-nvtx-cu12", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "setuptools" },
-    { name = "sympy" },
-    { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-    { name = "typing-extensions" },
+    { name = "filelock", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "fsspec", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "jinja2", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "networkx", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "setuptools", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "sympy", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "typing-extensions", marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1-cp314-cp314-macosx_11_0_arm64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1-cp314-cp314t-macosx_11_0_arm64.whl" },
+]
+
+[[package]]
+name = "torch"
+version = "2.9.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+]
+dependencies = [
+    { name = "filelock", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "fsspec", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "jinja2", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "networkx", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "setuptools", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "sympy", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "typing-extensions", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/48/50/c4b5112546d0d13cc9eaa1c732b823d676a9f49ae8b6f97772f795874a03/torch-2.9.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:1edee27a7c9897f4e0b7c14cfc2f3008c571921134522d5b9b5ec4ebbc69041a", size = 74433245, upload-time = "2025-11-12T15:22:39.027Z" },
@@ -1426,13 +1736,192 @@ wheels = [
 ]
 
 [[package]]
+name = "torch"
+version = "2.9.1+cpu"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "filelock", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "fsspec", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "jinja2", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "networkx", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "setuptools", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "sympy", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "typing-extensions", marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314-win_amd64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314t-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314t-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp314-cp314t-win_amd64.whl" },
+]
+
+[[package]]
+name = "torch"
+version = "2.9.1+cu126"
+source = { registry = "https://download.pytorch.org/whl/cu126" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "filelock", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "fsspec", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "jinja2", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "networkx", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cublas-cu12", version = "12.6.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-cupti-cu12", version = "12.6.80", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-nvrtc-cu12", version = "12.6.77", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-runtime-cu12", version = "12.6.77", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cudnn-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cufft-cu12", version = "11.3.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cufile-cu12", version = "1.11.1.6", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-curand-cu12", version = "10.3.7.77", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusolver-cu12", version = "11.7.1.2", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparse-cu12", version = "12.5.4.2", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparselt-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nccl-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.6.85", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvshmem-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvtx-cu12", version = "12.6.77", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "setuptools", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "sympy", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "triton", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "typing-extensions", marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314-win_amd64.whl" },
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314t-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314t-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cu126/torch-2.9.1%2Bcu126-cp314-cp314t-win_amd64.whl" },
+]
+
+[[package]]
+name = "torch"
+version = "2.9.1+cu128"
+source = { registry = "https://download.pytorch.org/whl/cu128" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "filelock", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "fsspec", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "jinja2", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "networkx", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cublas-cu12", version = "12.8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-cupti-cu12", version = "12.8.90", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-nvrtc-cu12", version = "12.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cuda-runtime-cu12", version = "12.8.90", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cudnn-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cufft-cu12", version = "11.3.3.83", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cufile-cu12", version = "1.13.1.3", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-curand-cu12", version = "10.3.9.90", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusolver-cu12", version = "11.7.3.90", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparse-cu12", version = "12.5.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-cusparselt-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nccl-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvjitlink-cu12", version = "12.8.93", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvshmem-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "nvidia-nvtx-cu12", version = "12.8.90", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "setuptools", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "sympy", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "triton", marker = "(sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "typing-extensions", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314-win_amd64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314t-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314t-manylinux_2_28_x86_64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torch-2.9.1%2Bcu128-cp314-cp314t-win_amd64.whl" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.24.1"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+    "sys_platform == 'darwin'",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:9839848aff47d98e7724abd1a3076121db96066c32ddb319b685dfe077360f40" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:32a5ce99ec2081fd5ab304da0aa9691b6ec047d12a329c0d991c69d0a1beee45" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:7df2c98665e3e5532da320b7d94ca228799b6c7a41700e772536bd4de2d324c7" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:e789fc690ff1307eb46540b4b8b76a8a3e06281078cf29c51b636e747373498a" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.24.1"
+source = { registry = "https://download.pytorch.org/whl/cu126" }
+resolution-markers = [
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:0c61888bc79a99f7fa6cdf8c6b93a63d728fcf1694b7d0560247f0d9f1343aad" },
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:ce4f98b1ffa300a4be656190a50d13f7ce8bea9eed288245860ad5e63e1697b5" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.24.1"
+source = { registry = "https://download.pytorch.org/whl/cu128" }
+resolution-markers = [
+    "python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1-cp314-cp314-manylinux_2_28_aarch64.whl" },
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1-cp314-cp314t-manylinux_2_28_aarch64.whl" },
+]
+
+[[package]]
 name = "torchvision"
 version = "0.24.1"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+]
 dependencies = [
-    { name = "numpy" },
-    { name = "pillow" },
-    { name = "torch" },
+    { name = "numpy", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/42/84/577b2cef8f32094add5f52887867da4c2a3e6b4261538447e9b48eb25812/torchvision-0.24.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:cccf4b4fec7fdfcd3431b9ea75d1588c0a8596d0333245dafebee0462abe3388", size = 2005319, upload-time = "2025-11-12T15:25:23.827Z" },
@@ -1446,37 +1935,104 @@ wheels = [
 ]
 
 [[package]]
+name = "torchvision"
+version = "0.24.1+cpu"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version >= '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version >= '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version >= '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1%2Bcpu-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:e2c56fdda9e7a0f927d0d2748d756eb11e350e576efc719e9ab8a1b610213835" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1%2Bcpu-cp314-cp314-win_amd64.whl", hash = "sha256:16e8565e5a8f3de450605a494605f89a4995c99c29734e0fa0d3c5577c717e69" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1%2Bcpu-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:ad95138606b528c0c8976e6e0b184665433505c1aa87472bd31675f71d9d81c5" },
+    { url = "https://download.pytorch.org/whl/cpu/torchvision-0.24.1%2Bcpu-cp314-cp314t-win_amd64.whl", hash = "sha256:75699e64987870f419e6f4fdb6a8508c2952b0faf9482a3a105d5b2c6c76c37a" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.24.1+cu126"
+source = { registry = "https://download.pytorch.org/whl/cu126" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:a5467e817c5da64909e240684d5470b5eb8d7e9b521cc41802dbfc336ac65973" },
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1%2Bcu126-cp314-cp314-win_amd64.whl", hash = "sha256:6e769b5fa356a4fb994c4f47541a9665ee7b66e8d10c626d041cd44ab74f7dda" },
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1%2Bcu126-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:1a778c4f1a84a90edc9e38710f619742c5ffc00bc082da0a1e00bb27273ed53c" },
+    { url = "https://download.pytorch.org/whl/cu126/torchvision-0.24.1%2Bcu126-cp314-cp314t-win_amd64.whl", hash = "sha256:9fa881f07cc7eb0c64a832864db803158c2e06eb3af99bd36af36aaec469db7b" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.24.1+cu128"
+source = { registry = "https://download.pytorch.org/whl/cu128" }
+resolution-markers = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'darwin'",
+    "(python_full_version >= '3.15' and platform_machine == 'aarch64' and sys_platform == 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')",
+    "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
+]
+dependencies = [
+    { name = "numpy", marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "pillow", marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+wheels = [
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1%2Bcu128-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:3b72e32377e5e91398ddc4579c77784b269652a5795f4b20a5a1d4c80e9bd3dd" },
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1%2Bcu128-cp314-cp314-win_amd64.whl", hash = "sha256:b5528b460d65c64e87301e942f6450d0ae958d919386e01fa682ba5eb77e5c9d" },
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1%2Bcu128-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:45792b58c2a9761da4e1d9d12c4bf5140b6250ef9210f42f716f284cff5566ea" },
+    { url = "https://download.pytorch.org/whl/cu128/torchvision-0.24.1%2Bcu128-cp314-cp314t-win_amd64.whl", hash = "sha256:c129e153561be8992c998f87d099ff74203ac19f8b2aadeb8edfbfd30036f81c" },
+]
+
+[[package]]
 name = "triton"
 version = "3.5.1"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/14/f9/0430e879c1e63a1016cb843261528fd3187c872c3a9539132efc39514753/triton-3.5.1-cp314-cp314-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:f617aa7925f9ea9968ec2e1adaf93e87864ff51549c8f04ce658f29bbdb71e2d", size = 159956163, upload-time = "2025-11-11T17:52:12.999Z" },
     { url = "https://files.pythonhosted.org/packages/a4/e6/c595c35e5c50c4bc56a7bac96493dad321e9e29b953b526bbbe20f9911d0/triton-3.5.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:d0637b1efb1db599a8e9dc960d53ab6e4637db7d4ab6630a0974705d77b14b60", size = 170480488, upload-time = "2025-11-11T17:41:18.222Z" },
+    { url = "https://files.pythonhosted.org/packages/41/1e/63d367c576c75919e268e4fbc33c1cb33b6dc12bb85e8bfe531c2a8bd5d3/triton-3.5.1-cp314-cp314t-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:8932391d7f93698dfe5bc9bead77c47a24f97329e9f20c10786bb230a9083f56", size = 160073620, upload-time = "2025-11-11T17:52:18.403Z" },
     { url = "https://files.pythonhosted.org/packages/16/b5/b0d3d8b901b6a04ca38df5e24c27e53afb15b93624d7fd7d658c7cd9352a/triton-3.5.1-cp314-cp314t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:bac7f7d959ad0f48c0e97d6643a1cc0fd5786fe61cb1f83b537c6b2d54776478", size = 170582192, upload-time = "2025-11-11T17:41:23.963Z" },
 ]
 
 [[package]]
 name = "ty"
-version = "0.0.5"
+version = "0.0.6"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/9e/db/6299d478000f4f1c6f9bf2af749359381610ffc4cbe6713b66e436ecf6e7/ty-0.0.5.tar.gz", hash = "sha256:983da6330773ff71e2b249810a19c689f9a0372f6e21bbf7cde37839d05b4346", size = 4806218, upload-time = "2025-12-20T21:19:17.24Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e5/0d/ed8a66c10ca2ec5d80d683f945c1d0ef6b030905baca4cc4ec5082c62a9f/ty-0.0.6.tar.gz", hash = "sha256:ecf195494fe442daac961ccbf1be286471b92a690adf1ae86de252cc0ce766e8", size = 4818224, upload-time = "2025-12-23T22:15:47.947Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7c/98/c1f61ba378b4191e641bb36c07b7fcc70ff844d61be7a4bf2fea7472b4a9/ty-0.0.5-py3-none-linux_armv6l.whl", hash = "sha256:1594cd9bb68015eb2f5a3c68a040860f3c9306dc6667d7a0e5f4df9967b460e2", size = 9785554, upload-time = "2025-12-20T21:19:05.024Z" },
-    { url = "https://files.pythonhosted.org/packages/ab/f9/b37b77c03396bd779c1397dae4279b7ad79315e005b3412feed8812a4256/ty-0.0.5-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:7c0140ba980233d28699d9ddfe8f43d0b3535d6a3bbff9935df625a78332a3cf", size = 9603995, upload-time = "2025-12-20T21:19:15.256Z" },
-    { url = "https://files.pythonhosted.org/packages/7d/70/4e75c11903b0e986c0203040472627cb61d6a709e1797fb08cdf9d565743/ty-0.0.5-py3-none-macosx_11_0_arm64.whl", hash = "sha256:15de414712cde92048ae4b1a77c4dc22920bd23653fe42acaf73028bad88f6b9", size = 9145815, upload-time = "2025-12-20T21:19:36.481Z" },
-    { url = "https://files.pythonhosted.org/packages/89/05/93983dfcf871a41dfe58e5511d28e6aa332a1f826cc67333f77ae41a2f8a/ty-0.0.5-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:438aa51ad6c5fae64191f8d58876266e26f9250cf09f6624b6af47a22fa88618", size = 9619849, upload-time = "2025-12-20T21:19:19.084Z" },
-    { url = "https://files.pythonhosted.org/packages/82/b6/896ab3aad59f846823f202e94be6016fb3f72434d999d2ae9bd0f28b3af9/ty-0.0.5-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:1b3d373fd96af1564380caf153600481c676f5002ee76ba8a7c3508cdff82ee0", size = 9606611, upload-time = "2025-12-20T21:19:24.583Z" },
-    { url = "https://files.pythonhosted.org/packages/ca/ae/098e33fc92330285ed843e2750127e896140c4ebd2d73df7732ea496f588/ty-0.0.5-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8453692503212ad316cf8b99efbe85a91e5f63769c43be5345e435a1b16cba5a", size = 10029523, upload-time = "2025-12-20T21:19:07.055Z" },
-    { url = "https://files.pythonhosted.org/packages/04/5a/f4b4c33758b9295e9aca0de9645deca0f4addd21d38847228723a6e780fc/ty-0.0.5-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:2e4c454139473abbd529767b0df7a795ed828f780aef8d0d4b144558c0dc4446", size = 10870892, upload-time = "2025-12-20T21:19:34.495Z" },
-    { url = "https://files.pythonhosted.org/packages/c3/c5/4e3e7e88389365aa1e631c99378711cf0c9d35a67478cb4720584314cf44/ty-0.0.5-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:426d4f3b82475b1ec75f3cc9ee5a667c8a4ae8441a09fcd8e823a53b706d00c7", size = 10599291, upload-time = "2025-12-20T21:19:26.557Z" },
-    { url = "https://files.pythonhosted.org/packages/c1/5d/138f859ea87bd95e17b9818e386ae25a910e46521c41d516bf230ed83ffc/ty-0.0.5-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:5710817b67c6b2e4c0224e4f319b7decdff550886e9020f6d46aa1ce8f89a609", size = 10413515, upload-time = "2025-12-20T21:19:11.094Z" },
-    { url = "https://files.pythonhosted.org/packages/27/21/1cbcd0d3b1182172f099e88218137943e0970603492fb10c7c9342369d9a/ty-0.0.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e23c55ef08882c7c5ced1ccb90b4eeefa97f690aea254f58ac0987896c590f76", size = 10144992, upload-time = "2025-12-20T21:19:13.225Z" },
-    { url = "https://files.pythonhosted.org/packages/ad/30/fdac06a5470c09ad2659a0806497b71f338b395d59e92611f71b623d05a0/ty-0.0.5-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:b9e4c1a28a23b14cf8f4f793f4da396939f16c30bfa7323477c8cc234e352ac4", size = 9606408, upload-time = "2025-12-20T21:19:09.212Z" },
-    { url = "https://files.pythonhosted.org/packages/09/93/e99dcd7f53295192d03efd9cbcec089a916f49cad4935c0160ea9adbd53d/ty-0.0.5-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:4e9ebb61529b9745af662e37c37a01ad743cdd2c95f0d1421705672874d806cd", size = 9630040, upload-time = "2025-12-20T21:19:38.165Z" },
-    { url = "https://files.pythonhosted.org/packages/d7/f8/6d1e87186e4c35eb64f28000c1df8fd5f73167ce126c5e3dd21fd1204a23/ty-0.0.5-py3-none-musllinux_1_2_i686.whl", hash = "sha256:5eb191a8e332f50f56dfe45391bdd7d43dd4ef6e60884710fd7ce84c5d8c1eb5", size = 9754016, upload-time = "2025-12-20T21:19:32.79Z" },
-    { url = "https://files.pythonhosted.org/packages/28/e6/20f989342cb3115852dda404f1d89a10a3ce93f14f42b23f095a3d1a00c9/ty-0.0.5-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:92ed7451a1e82ee134a2c24ca43b74dd31e946dff2b08e5c34473e6b051de542", size = 10252877, upload-time = "2025-12-20T21:19:20.787Z" },
-    { url = "https://files.pythonhosted.org/packages/57/9d/fc66fa557443233dfad9ae197ff3deb70ae0efcfb71d11b30ef62f5cdcc3/ty-0.0.5-py3-none-win32.whl", hash = "sha256:71f6707e4c1c010c158029a688a498220f28bb22fdb6707e5c20e09f11a5e4f2", size = 9212640, upload-time = "2025-12-20T21:19:30.817Z" },
-    { url = "https://files.pythonhosted.org/packages/68/b6/05c35f6dea29122e54af0e9f8dfedd0a100c721affc8cc801ebe2bc2ed13/ty-0.0.5-py3-none-win_amd64.whl", hash = "sha256:2b8b754a0d7191e94acdf0c322747fec34371a4d0669f5b4e89549aef28814ae", size = 10034701, upload-time = "2025-12-20T21:19:28.311Z" },
-    { url = "https://files.pythonhosted.org/packages/df/ca/4201ed5cb2af73912663d0c6ded927c28c28b3c921c9348aa8d2cfef4853/ty-0.0.5-py3-none-win_arm64.whl", hash = "sha256:83bea5a5296caac20d52b790ded2b830a7ff91c4ed9f36730fe1f393ceed6654", size = 9566474, upload-time = "2025-12-20T21:19:22.518Z" },
+    { url = "https://files.pythonhosted.org/packages/8a/95/d5334c41e006242211719c69625e622b4cbab4eaa2c1da485f6f5d64da56/ty-0.0.6-py3-none-linux_armv6l.whl", hash = "sha256:02a600a9d8e5489097e7566f048d1be471bcd17d52f9236d659b3dd3d8bce3bd", size = 9865948, upload-time = "2025-12-23T22:16:08.429Z" },
+    { url = "https://files.pythonhosted.org/packages/91/11/e0ef9b8e56c6fbfa6c3cda1dcfde21d670e75bce142233a748542f1969da/ty-0.0.6-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:4e4654bf04bd517e02a2afe105ce86b62815900db7cca2d213284a0573635103", size = 9689798, upload-time = "2025-12-23T22:16:10.069Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/39/8afc6421ac283b23854b4e08d6c498e33ba2f8f1c2a0c669da1852191451/ty-0.0.6-py3-none-macosx_11_0_arm64.whl", hash = "sha256:4bfdaa6f54a9123d9a5dd094596fc671015ec0f3ef2fad14494246c4654281bc", size = 9205779, upload-time = "2025-12-23T22:16:06.755Z" },
+    { url = "https://files.pythonhosted.org/packages/03/11/f6cb1781ad7cc55bd03264979cce97aa761064bd9e2959e5334dc9ee5d38/ty-0.0.6-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b42b1abc068c5012f60618139852f02f6d2c566979edf2306ef1ac15dd9ee4c4", size = 9693432, upload-time = "2025-12-23T22:15:54.679Z" },
+    { url = "https://files.pythonhosted.org/packages/90/a7/2fb7f711ccbe2038b922b6b9daaddabad9df81b67a23b93fb82bbf59ae68/ty-0.0.6-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:3a890c1145ace0e16e3d1be4df8272ed5915ac35bd75e4a0e1c53001ca090713", size = 9668051, upload-time = "2025-12-23T22:16:00.822Z" },
+    { url = "https://files.pythonhosted.org/packages/01/4e/5bba4863f448f1bd593c01bb9616349c56ab4ec3c076cff3c0f840044875/ty-0.0.6-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f65b5d1505aa8a6ffb9dad673a3aa11c77411baa132d32b62e39662dafcb94ee", size = 10099592, upload-time = "2025-12-23T22:16:12.294Z" },
+    { url = "https://files.pythonhosted.org/packages/66/83/0c417c213003e21c976af8e897abc2565811d90935a820348d9507de5b66/ty-0.0.6-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:7bb4d332d02e9b4abe3cbaa2f53fd0fe4c8d12b187a8aa398b658ba2f4f9f5a7", size = 10987979, upload-time = "2025-12-23T22:15:52.502Z" },
+    { url = "https://files.pythonhosted.org/packages/31/2f/82ba22fc1f2f0edd123505c58a1736d83b9fd9fcf670357f68f4b1917f52/ty-0.0.6-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:9331ba14dd90fa6f3650786d3fa5a08a4382e4e20a0879316843d09fc739f2a4", size = 10690933, upload-time = "2025-12-23T22:16:14.34Z" },
+    { url = "https://files.pythonhosted.org/packages/8b/1a/d3e40753820b40218af0d9c6945b347ca524dd57dbe1a8d0160e980e9a91/ty-0.0.6-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:2c8bb30bc8e45fb5caba70bb63e338027019167a7f1e733a15f27eaabed28522", size = 10521677, upload-time = "2025-12-23T22:15:50.157Z" },
+    { url = "https://files.pythonhosted.org/packages/38/c8/cd8c34e99a12db62fee1b715482242d712b421936e0a94e221b99ef0f0a3/ty-0.0.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e27661ea96e60320e12a660958c39a6630d111ecac0028cf164003c966ef758c", size = 10226973, upload-time = "2025-12-23T22:15:59.088Z" },
+    { url = "https://files.pythonhosted.org/packages/65/c1/27ae51eab2cfe9177967c89b416b6beaa5100036b719d9b1621eb1b0a8c0/ty-0.0.6-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:36f85148acec63ac87a4e49139f50f0add95fdfcef171cc8973a530c72ca8e27", size = 9675931, upload-time = "2025-12-23T22:16:21.164Z" },
+    { url = "https://files.pythonhosted.org/packages/a1/29/b1a7b223a9519b4e8b4ae31d1b092c79700e3977981abb1da07321bb7d88/ty-0.0.6-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:aa0988a3720882c255fa173753746d90bd9d82adebb1a00a561e0a04bbca1cd4", size = 9685617, upload-time = "2025-12-23T22:15:57.046Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/a7/d86ca25d4f0e9c666dcd7053190c45f2c34219525fc4c586df667e65e38b/ty-0.0.6-py3-none-musllinux_1_2_i686.whl", hash = "sha256:48783f31a758bcb959e3ed58464872aee4b3f40da3b6b84fbc3bb450567232bd", size = 9834627, upload-time = "2025-12-23T22:16:17.708Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/21/76e9e7f507b412533ec000554731abd94a435bfc8a9bfadbde1d88d34914/ty-0.0.6-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:b24660cdd84740dce548af4d0a821f2c76f8a59a7b2dc284c52e0d3ef0829f39", size = 10330699, upload-time = "2025-12-23T22:16:15.969Z" },
+    { url = "https://files.pythonhosted.org/packages/cd/ee/17e1d8dd2d75a175178cc3df776b9fb7ce7823975582cbb6f8f27e015f80/ty-0.0.6-py3-none-win32.whl", hash = "sha256:a53683a8e3eec225b00be402372139868bb29c15ddb3a0ba8ad7d38ec5196785", size = 9274125, upload-time = "2025-12-23T22:16:04.658Z" },
+    { url = "https://files.pythonhosted.org/packages/a3/ec/aa8dd57044319b857b5526178848ae6b94fd990135ef13d4d308f9a82736/ty-0.0.6-py3-none-win_amd64.whl", hash = "sha256:e6f840220462a2122c171440f5fc989d0125175290d636c5436eaa736bbc83b1", size = 10131668, upload-time = "2025-12-23T22:16:19.392Z" },
+    { url = "https://files.pythonhosted.org/packages/86/fe/bb0783213193a3294119d3d12b0454e59d7c23b3d1592f04a9711d458289/ty-0.0.6-py3-none-win_arm64.whl", hash = "sha256:8e595ece22a130d32532b0c18808db98a258227dd53230968f45c6cbf040ea50", size = 9643743, upload-time = "2025-12-23T22:16:02.56Z" },
 ]
 
 [[package]]
@@ -1502,7 +2058,7 @@ name = "tzlocal"
 version = "5.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "tzdata", marker = "sys_platform == 'win32'" },
+    { name = "tzdata", marker = "sys_platform == 'win32' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/8b/2e/c14812d3d4d9cd1773c6be938f89e5735a1f11a9f184ac3639b93cef35d5/tzlocal-5.3.1.tar.gz", hash = "sha256:cceffc7edecefea1f595541dbd6e990cb1ea3d19bf01b2809f362a03dd7921fd", size = 30761, upload-time = "2025-03-05T21:17:41.549Z" }
 wheels = [
@@ -1523,8 +2079,18 @@ dependencies = [
     { name = "pyyaml" },
     { name = "requests" },
     { name = "scipy" },
-    { name = "torch" },
-    { name = "torchvision" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version >= '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
     { name = "ultralytics-thop" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1d/56/25f7cbc9f799f34d3e76252bd55c81b30b0b95b1960b182e44811b0e1316/ultralytics-8.3.235.tar.gz", hash = "sha256:33cb607226a4876fe821386aa71c020d865bd2480ddd42847792cf09abd3f456", size = 925896, upload-time = "2025-12-04T09:37:09.478Z" }
@@ -1538,7 +2104,11 @@ version = "2.0.18"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
-    { name = "torch" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra != 'extra-13-watchtower-ai-cu126' and extra != 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-13-watchtower-ai-cu126' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1f/63/21a32e1facfeee245dbdfb7b4669faf7a36ff7c00b50987932bdab126f4b/ultralytics_thop-2.0.18.tar.gz", hash = "sha256:21103bcd39cc9928477dc3d9374561749b66a1781b35f46256c8d8c4ac01d9cf", size = 34557, upload-time = "2025-10-29T16:58:13.526Z" }
 wheels = [
@@ -1576,11 +2146,29 @@ dependencies = [
     { name = "flask-security", extra = ["common", "fsqla"] },
     { name = "flask-sqlalchemy" },
     { name = "flask-wtf" },
-    { name = "gevent", marker = "sys_platform == 'win32'" },
+    { name = "gevent", marker = "sys_platform == 'win32' or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
     { name = "lap" },
     { name = "pillow" },
     { name = "python-dotenv" },
     { name = "ultralytics" },
+]
+
+[package.optional-dependencies]
+cpu = [
+    { name = "torch", version = "2.9.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torch", version = "2.9.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(python_full_version >= '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cpu') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform == 'darwin' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+cu126 = [
+    { name = "torch", version = "2.9.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" } },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+]
+cu128 = [
+    { name = "torch", version = "2.9.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
+    { name = "torchvision", version = "0.24.1", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version < '3.15' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
+    { name = "torchvision", version = "0.24.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(python_full_version >= '3.15' and extra == 'extra-13-watchtower-ai-cu128') or (python_full_version < '3.15' and extra == 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (platform_machine != 'aarch64' and extra == 'extra-13-watchtower-ai-cu128') or (platform_python_implementation != 'CPython' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cu126' and extra == 'extra-13-watchtower-ai-cu128') or (sys_platform != 'linux' and extra != 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu126') or (extra == 'extra-13-watchtower-ai-cpu' and extra == 'extra-13-watchtower-ai-cu128')" },
 ]
 
 [package.dev-dependencies]
@@ -1609,15 +2197,22 @@ requires-dist = [
     { name = "lap", specifier = ">=0.5.12" },
     { name = "pillow", specifier = ">=12.0.0" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "torch", marker = "extra == 'cpu'", specifier = ">=2.9.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "watchtower-ai", extra = "cpu" } },
+    { name = "torch", marker = "extra == 'cu126'", specifier = ">=2.9.1", index = "https://download.pytorch.org/whl/cu126", conflict = { package = "watchtower-ai", extra = "cu126" } },
+    { name = "torch", marker = "extra == 'cu128'", specifier = ">=2.9.1", index = "https://download.pytorch.org/whl/cu128", conflict = { package = "watchtower-ai", extra = "cu128" } },
+    { name = "torchvision", marker = "extra == 'cpu'", specifier = ">=0.24.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "watchtower-ai", extra = "cpu" } },
+    { name = "torchvision", marker = "extra == 'cu126'", specifier = ">=0.24.1", index = "https://download.pytorch.org/whl/cu126", conflict = { package = "watchtower-ai", extra = "cu126" } },
+    { name = "torchvision", marker = "extra == 'cu128'", specifier = ">=0.24.1", index = "https://download.pytorch.org/whl/cu128", conflict = { package = "watchtower-ai", extra = "cu128" } },
     { name = "ultralytics", specifier = ">=8.3.235" },
 ]
+provides-extras = ["cpu", "cu128", "cu126"]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "black", specifier = ">=25.11.0" },
-    { name = "celery-types", specifier = ">=0.23.0" },
+    { name = "celery-types", specifier = ">=0.24.0" },
     { name = "ruff", specifier = ">=0.14.10" },
-    { name = "ty", specifier = ">=0.0.5" },
+    { name = "ty", specifier = ">=0.0.6" },
 ]
 prod = [
     { name = "cryptography", specifier = ">=46.0.3" },
@@ -1681,5 +2276,10 @@ version = "8.1.1"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/71/c9/5ec8679a04d37c797d343f650c51ad67d178f0001c363e44b6ac5f97a9da/zope_interface-8.1.1.tar.gz", hash = "sha256:51b10e6e8e238d719636a401f44f1e366146912407b58453936b781a19be19ec", size = 254748, upload-time = "2025-11-15T08:32:52.404Z" }
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/b9/f5/44efbd98ba06cb937fce7a69fcd7a78c4ac7aa4e1ad2125536801376d2d0/zope_interface-8.1.1-cp314-cp314-macosx_10_9_x86_64.whl", hash = "sha256:da311e9d253991ca327601f47c4644d72359bac6950fbb22f971b24cd7850f8c", size = 209099, upload-time = "2025-11-15T08:37:09.395Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/36/a19866c09c8485c36a4c6908e1dd3f8820b41c1ee333c291157cf4cf09e7/zope_interface-8.1.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:3fb25fca0442c7fb93c4ee40b42e3e033fef2f648730c4b7ae6d43222a3e8946", size = 209240, upload-time = "2025-11-15T08:37:10.687Z" },
+    { url = "https://files.pythonhosted.org/packages/c1/28/0dbf40db772d779a4ac8d006a57ad60936d42ad4769a3d5410dcfb98f6f9/zope_interface-8.1.1-cp314-cp314-manylinux1_i686.manylinux2014_i686.manylinux_2_17_i686.manylinux_2_5_i686.whl", hash = "sha256:bac588d0742b4e35efb7c7df1dacc0397b51ed37a17d4169a38019a1cebacf0a", size = 260919, upload-time = "2025-11-15T08:37:11.838Z" },
+    { url = "https://files.pythonhosted.org/packages/72/ae/650cd4c01dd1b32c26c800b2c4d852f044552c34a56fbb74d41f569cee31/zope_interface-8.1.1-cp314-cp314-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:3d1f053d2d5e2b393e619bce1e55954885c2e63969159aa521839e719442db49", size = 264102, upload-time = "2025-11-15T08:37:13.241Z" },
+    { url = "https://files.pythonhosted.org/packages/46/f0/f534a2c34c006aa090c593cd70eaf94e259fd0786f934698d81f0534d907/zope_interface-8.1.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:64a1ad7f4cb17d948c6bdc525a1d60c0e567b2526feb4fa38b38f249961306b8", size = 264276, upload-time = "2025-11-15T08:37:14.369Z" },
     { url = "https://files.pythonhosted.org/packages/5b/a8/d7e9cf03067b767e23908dbab5f6be7735d70cb4818311a248a8c4bb23cc/zope_interface-8.1.1-cp314-cp314-win_amd64.whl", hash = "sha256:169214da1b82b7695d1a36f92d70b11166d66b6b09d03df35d150cc62ac52276", size = 212492, upload-time = "2025-11-15T08:37:15.538Z" },
 ]

@@ -23,10 +23,60 @@ dependencies = [
 dev = [
     "black>=25.11.0",
     "ruff>=0.14.10",
-    "ty>=0.0.5",
-    "celery-types>=0.23.0",
+    "ty>=0.0.6",
+    "celery-types>=0.24.0",
 ]
 prod = [
     "cryptography>=46.0.3",
     "gunicorn>=23.0.0",
 ]
+
+[project.optional-dependencies]
+cpu = [
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+]
+cu128 = [
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+]
+cu126 = [
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "cu128" },
+        { extra = "cu126" },
+    ],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu128", extra = "cu128" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+torchvision = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu128", extra = "cu128" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
