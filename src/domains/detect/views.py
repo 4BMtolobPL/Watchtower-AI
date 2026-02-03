@@ -3,16 +3,15 @@ from pathlib import Path
 from typing import List
 
 import cv2
-from celery import shared_task
 from flask import (Blueprint, current_app, jsonify, redirect, render_template, request, send_from_directory, url_for, )
 from flask_login import current_user, login_required
 from ultralytics.engine.results import Results
 
 from src.domains.detect.forms import (DeleteImageForm, DetectImageForm, DetectVideoForm, UploadImageForm,
                                       UploadVideoForm, )
-from src.domains.detect.models import (DetectionImage, DetectionVideo, TaskStatus, UserImage, UserVideo, )
+from src.domains.detect.models import (DetectionImage, DetectionVideo, UserImage, UserVideo, )
 from src.main import db
-from src.utils.detector import (ImageDetectorEnum, VideoDetectorEnum, image_detector_models, video_detector_models, )
+from src.utils.detector import (ImageDetectorEnum, VideoDetectorEnum, image_detector_models, )
 from src.utils.task_manager import create_detect_task
 
 detect_views = Blueprint("detect", __name__, template_folder="templates", static_folder="static")
@@ -290,32 +289,3 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
     cap.release()
     return thumbnail_name
-
-
-@shared_task(ignore_result=False)
-def detect_videos(base: str, src: str, dest_name: str, selected_model: str, detection_video_id: int):
-    current_app.logger.info(f"Detecting videos: {src}")
-
-    detection_video: DetectionVideo | None = DetectionVideo.query.get(detection_video_id)
-    if detection_video:
-        detection_video.status = TaskStatus.STARTED
-        db.session.commit()
-
-    try:
-        base_path: Path = Path(base)
-
-        detector = video_detector_models[VideoDetectorEnum(selected_model)]()
-        detector.detect(base_path / src, base_path / f"{dest_name}.mp4", conf=0.5, verbose=False)
-
-        current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
-
-        if detection_video:
-            detection_video.status = TaskStatus.SUCCESS
-            db.session.commit()
-    except Exception as e:
-        current_app.logger.error(f"End detecting videos: {e}")
-        if detection_video:
-            detection_video.status = TaskStatus.FAILURE
-            db.session.commit()
-
-    return dest_name
