@@ -1,3 +1,4 @@
 FLASK_APP=src.main
 UPLOAD_FOLDER=uploads
 MODELS_FOLDER=models
+STREAM_FOLDER=streams
