@@ -9,7 +9,7 @@ Create Date: 2025-12-22 11:38:13.817438
 import sqlalchemy as sa
 from alembic import op
 
-from src.domains.detect.models import TaskStatus
+from src.utils.task_enum import TaskStatus
 
 # revision identifiers, used by Alembic.
 revision = "a3f2ceb774bc"
