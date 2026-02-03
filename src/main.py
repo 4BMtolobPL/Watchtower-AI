@@ -59,6 +59,7 @@ def create_app(env: str = "development") -> Flask:
     init_folder(Path(app.config["UPLOAD_FOLDER"]) / "images")
     init_folder(Path(app.config["UPLOAD_FOLDER"]) / "videos")
     init_folder(Path(app.config["MODELS_FOLDER"]))
+    init_folder(Path(app.config["STREAM_FOLDER"]))
 
     return app
 
