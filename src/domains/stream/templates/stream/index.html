@@ -1,5 +1,15 @@
-{% extends 'detect/base.html' %}
+{% extends 'stream/base.html' %}
 {% block title %}Stream{% endblock %}
 {% block content %}
-<h1>Stream</h1>
+<div>
+    <a class="btn btn-primary" href="{{ url_for('stream.create') }}">추가</a>
+</div>
+
+<ul class="list-group">
+    {% for user_stream in user_streams %}
+    <li class="list-group-item">
+        <a href="{{ url_for('stream.detail', stream_id=user_stream.id) }}">{{user_stream.stream_url}}</a>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
