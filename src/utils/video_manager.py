@@ -24,7 +24,8 @@ def is_stream_source(src: str) -> bool:
 
 
 def create_stream_input_command(src: Path):
-    return ["ffmpeg", "-loglevel", "error", "-i", str(src), "-f", "rawvideo", "-pix_fmt", "bgr24", "-", ]
+    return ["ffmpeg", "-loglevel", "error", "-fflags", "nobuffer", "-flags", "low_delay", "-vsync", "drop", "-i",
+            str(src), "-f", "rawvideo", "-pix_fmt", "bgr24", "-", ]
 
 
 def create_file_input_command(src: Path):
