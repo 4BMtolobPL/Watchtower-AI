@@ -1,13 +1,13 @@
-import json
 import os
 import subprocess
 import time
 from pathlib import Path
-from typing import List
 
 import cv2
 import numpy as np
 from ultralytics import YOLO
+
+from src.utils.video_manager import should_stop
 
 models_folder = Path(os.environ.get("MODELS_FOLDER", "models"))
 
@@ -15,76 +15,6 @@ models_folder = Path(os.environ.get("MODELS_FOLDER", "models"))
 class BaseVideoDetector:
     def __init__(self, model_src: Path, **kwargs):
         self.model = YOLO(model_src, **kwargs)
-
-    @staticmethod
-    def create_h264_output_command(
-        width: int, height: int, save_path: Path
-    ) -> List[str]:
-        return [
-            "ffmpeg",
-            "-y",
-            "-f",
-            "rawvideo",
-            "-pix_fmt",
-            "bgr24",
-            "-s",
-            f"{width}x{height}",
-            "-i",
-            "-",
-            "-c:v",
-            "libx264",
-            "-profile:v",
-            "main",
-            "-pix_fmt",
-            "yuv420p",
-            "-movflags",
-            "+faststart",
-            str(save_path.resolve()),
-        ]
-
-    @staticmethod
-    def create_file_input_command(path: Path):
-        return [
-            "ffmpeg",
-            "-loglevel",
-            "error",
-            "-re",
-            "-i",
-            str(path.resolve()),
-            "-f",
-            "rawvideo",
-            "-pix_fmt",
-            "bgr24",
-            "-",
-        ]
-
-    @staticmethod
-    def probe_video_resolution(src: str) -> tuple[int, int]:
-        cmd = [
-            "ffprobe",
-            "-v",
-            "error",
-            "-select_streams",
-            "v:0",
-            "-show_entries",
-            "stream=width,height",
-            "-of",
-            "json",
-            src,
-        ]
-
-        result = subprocess.run(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=True,
-        )
-
-        info = json.loads(result.stdout)
-        stream_info = info["streams"][0]
-
-        return int(stream_info["width"]), int(stream_info["height"])
 
     @staticmethod
     def terminate_process(proc: subprocess.Popen):
@@ -95,18 +25,11 @@ class BaseVideoDetector:
             except subprocess.TimeoutExpired:
                 proc.kill()
 
-    def detect(self, src: Path, dest: Path, **kwargs):
-        input_cmd = self.create_file_input_command(Path(src))
-        width, height = self.probe_video_resolution(str(src))
-        output_cmd = self.create_h264_output_command(width, height, dest)
+    def detect(self, input_cmd: str, output_cmd: str, width: int, height: int, stream_id: str, **kwargs):
 
         # Input, Output 스트림
-        ffmpeg_in = subprocess.Popen(
-            input_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
-        )
-        ffmpeg_out = subprocess.Popen(
-            output_cmd, stdin=subprocess.PIPE, stderr=subprocess.DEVNULL
-        )
+        ffmpeg_in = subprocess.Popen(input_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        ffmpeg_out = subprocess.Popen(output_cmd, stdin=subprocess.PIPE, stderr=subprocess.DEVNULL)
         assert ffmpeg_in.stdout is not None
         assert ffmpeg_out.stdin is not None
 
@@ -114,6 +37,9 @@ class BaseVideoDetector:
 
         try:
             while True:
+                if should_stop(stream_id):
+                    break
+
                 raw = ffmpeg_in.stdout.read(frame_size)
                 if not raw:
                     break
@@ -151,15 +77,7 @@ class VideoDetectorShoulderStop:
         self.SKIP = 4
 
         # 고정좌표
-        self.poly = np.array(
-            [
-                (459, 359),
-                (519, 364),
-                (283, 580),
-                (110, 544),
-            ],
-            dtype=np.int32,
-        )
+        self.poly = np.array([(459, 359), (519, 364), (283, 580), (110, 544), ], dtype=np.int32, )
 
         self.car_status = {}
         self.stopped_ids = set()
@@ -175,12 +93,7 @@ class VideoDetectorShoulderStop:
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-        out = cv2.VideoWriter(
-            str(dest),
-            cv2.VideoWriter.fourcc(*"avc1"),
-            fps,
-            (width, height),
-        )
+        out = cv2.VideoWriter(str(dest), cv2.VideoWriter.fourcc(*"avc1"), fps, (width, height), )
 
         while cap.isOpened():
             ret, frame = cap.read()
@@ -197,15 +110,7 @@ class VideoDetectorShoulderStop:
 
                     color = (0, 0, 255) if tid in self.stopped_ids else (0, 255, 0)
                     cv2.rectangle(annotated, (x1, y1), (x2, y2), color, 2)
-                    cv2.putText(
-                        annotated,
-                        f"ID:{tid}",
-                        (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.7,
-                        color,
-                        2,
-                    )
+                    cv2.putText(annotated, f"ID:{tid}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2, )
 
                 roi_color = (0, 0, 255) if self.last_roi_occupied else (0, 255, 0)
                 cv2.polylines(annotated, [self.poly], True, roi_color, 2)
@@ -217,12 +122,7 @@ class VideoDetectorShoulderStop:
             current_time = time.time()
             roi_occupied = False
 
-            results = self.model.track(
-                frame,
-                persist=True,
-                conf=0.05,
-                verbose=False,
-            )
+            results = self.model.track(frame, persist=True, conf=0.05, verbose=False, )
 
             if results[0].boxes.id is not None:
                 boxes = results[0].boxes.xyxy.cpu()
@@ -235,17 +135,9 @@ class VideoDetectorShoulderStop:
                     x1, y1, x2, y2 = map(int, box)
                     cx = (x1 + x2) // 2
                     cy = (y1 + y2) // 2
-                    corners = [
-                        (x1, y1),
-                        (x2, y1),
-                        (x2, y2),
-                        (x1, y2),
-                    ]
+                    corners = [(x1, y1), (x2, y1), (x2, y2), (x1, y2), ]
 
-                    inside = any(
-                        cv2.pointPolygonTest(self.poly, corner, False) >= 0
-                        for corner in corners
-                    )
+                    inside = any(cv2.pointPolygonTest(self.poly, corner, False) >= 0 for corner in corners)
 
                     if not inside:
                         continue
@@ -268,15 +160,7 @@ class VideoDetectorShoulderStop:
 
                     color = (0, 0, 255) if tid in self.stopped_ids else (0, 255, 0)
                     cv2.rectangle(annotated, (x1, y1), (x2, y2), color, 2)
-                    cv2.putText(
-                        annotated,
-                        f"ID:{tid}",
-                        (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.7,
-                        color,
-                        2,
-                    )
+                    cv2.putText(annotated, f"ID:{tid}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2, )
 
             self.last_roi_occupied = roi_occupied
 

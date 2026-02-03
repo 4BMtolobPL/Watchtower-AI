@@ -331,21 +331,13 @@ def video_detail(video_id: int):
 
         dest = str(uuid.uuid4())
 
-        detection_video = DetectionVideo(
-            model=selected_model,
-            video_path=f"{dest}.mp4",
-            user_video=user_video,
-        )
+        detection_video = DetectionVideo(model=selected_model, video_path=f"{dest}.mp4", user_video=user_video, )
         db.session.add(detection_video)
         db.session.commit()
 
-        result = detect_videos.delay(
-            str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
-            str(user_video.video_path),
-            dest,
-            selected_model,
-            detection_video.id,
-        )
+        src_path = Path(current_app.config["UPLOAD_FOLDER"], "videos", str(user_video.video_path))
+        dest_path = Path(current_app.config["UPLOAD_FOLDER"], "videos", f"{dest}.mp4")
+        result = create_detect_task.delay(str(src_path), str(dest_path), selected_model, detection_video.id)
         current_app.logger.info(f"Task 추가: {result.id}")
 
         return jsonify(
