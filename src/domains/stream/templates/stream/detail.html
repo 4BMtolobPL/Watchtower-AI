@@ -34,13 +34,14 @@
 </style>
 
 <script crossorigin="anonymous"
-        integrity="sha256-QTqD4rsMd+0L8L4QXVOdF+9F39mEoLE+zTsUqQE4OTg=" src="https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js"></script>
+        integrity="sha256-QTqD4rsMd+0L8L4QXVOdF+9F39mEoLE+zTsUqQE4OTg="
+        src="https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js"></script>
 
 <div class="row row-cols-1 g-4">
     <div class="col">
         <div class="video-box shadow-sm">
-            <div class="fw-bold mb-2 text-dark">실시간 감지</div>
-            <video autoplay id="video"></video>
+            <div class="fw-bold mb-2 text-dark">{{ user_stream.stream_name }}</div>
+            <video autoplay id="video" muted></video>
         </div>
     </div>
 </div>

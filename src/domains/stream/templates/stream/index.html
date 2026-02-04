@@ -8,7 +8,16 @@
 <ul class="list-group">
     {% for user_stream in user_streams %}
     <li class="list-group-item">
-        <a href="{{ url_for('stream.detail', stream_id=user_stream.id) }}">{{user_stream.stream_url}}</a>
+        <a href="{{ url_for('stream.detail', stream_id=user_stream.id) }}">{{ user_stream.stream_name }}</a>
+        {% if delete_form is defined %}
+        <form action="{{ url_for('stream.delete') }}" class="mt-2" method="POST"
+              onsubmit="return confirm('정말 삭제하시겠습니까?');">
+            {{ delete_form.csrf_token }}
+            <input name="delete_ids" type="hidden" value="{{ user_stream.id }}">
+            {{ delete_form.submit(class='btn btn-danger', style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem;
+            --bs-btn-font-size: .75rem;") }}
+        </form>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

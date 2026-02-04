@@ -1,8 +1,11 @@
+import shutil
 import uuid
 from pathlib import Path
 
-from flask import Blueprint, jsonify, current_app, abort, render_template, send_from_directory, redirect, url_for
+from flask import Blueprint, jsonify, current_app, abort, render_template, send_from_directory, redirect, url_for, \
+    request
 
+from domains.stream.forms import UserStreamDeleteForm
 from src.domains.stream.forms import UserStreamForm
 from src.domains.stream.models import UserStream
 from src.main import db
@@ -14,8 +17,9 @@ stream_views = Blueprint("stream", __name__, template_folder="templates", static
 @stream_views.route("/")
 def index():
     user_streams = UserStream.query.order_by(UserStream.id.desc()).all()
+    delete_form = UserStreamDeleteForm()
 
-    return render_template("stream/index.html", user_streams=user_streams)
+    return render_template("stream/index.html", user_streams=user_streams, delete_form=delete_form)
 
 
 @stream_views.route("/create", methods=["GET", "POST"])
@@ -23,11 +27,13 @@ def create():
     form = UserStreamForm()
 
     if form.validate_on_submit():
+        stream_name = form.stream_name.data
         stream_url = form.stream_url.data
         selected_model = form.model.data
 
         stream_key = str(uuid.uuid4())
-        user_stream = UserStream(model=selected_model, stream_url=stream_url, stream_key=stream_key)
+        user_stream = UserStream(model=selected_model, stream_url=stream_url, stream_key=stream_key,
+                                 stream_name=stream_name)
         db.session.add(user_stream)
         db.session.commit()
 
@@ -41,7 +47,7 @@ def create():
     return render_template("stream/create.html", form=form)
 
 
-@stream_views.get("/detail/<int:stream_id>")
+@stream_views.route("/detail/<int:stream_id>", methods=["GET", "POST"])
 def detail(stream_id: int):
     user_stream: UserStream = UserStream.query.get_or_404(stream_id)
     return render_template("stream/detail.html", user_stream=user_stream)
@@ -82,3 +88,28 @@ def hls(stream_key: str, filename: str):
     response.headers["Expires"] = "0"
 
     return response
+
+
+@stream_views.post("/delete")
+def delete():
+    stream_id: str = request.form.get("delete_ids")
+    current_app.logger.debug(f"Deleting stream {stream_id}")
+    user_stream: UserStream = UserStream.query.get_or_404(stream_id)
+
+    try:
+        save_dir = Path(current_app.config["STREAM_FOLDER"]) / user_stream.stream_key
+        if save_dir.is_dir():
+            shutil.rmtree(save_dir)
+        elif save_dir.is_file():
+            save_dir.unlink()
+        else:
+            current_app.logger.warning(f"Could not delete directory {save_dir}")
+            abort(400)
+
+        db.session.delete(user_stream)
+        db.session.commit()
+
+        return redirect(url_for("stream.index"))
+    except Exception as e:
+        current_app.logger.error(e)
+        abort(400)

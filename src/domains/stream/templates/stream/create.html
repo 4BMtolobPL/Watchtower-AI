@@ -62,6 +62,9 @@
             <span class="dt-auth-flash">{{ message }}</span>
             {% endfor %}
 
+            <label>이름</label>
+            {{ form.stream_name(class="form-control mb-3") }}
+
             <label>실시간 감지할 영상 주소</label>
             {{ form.stream_url(class="form-control mb-3") }}
 

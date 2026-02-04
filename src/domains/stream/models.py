@@ -9,4 +9,5 @@ class UserStream(db.Model):
     model: Mapped[str] = mapped_column()
     stream_url: Mapped[str] = mapped_column()
     stream_key: Mapped[str] = mapped_column()
+    stream_name: Mapped[str] = mapped_column()
     status: Mapped[TaskStatus] = mapped_column(default=TaskStatus.PENDING)
