@@ -23,9 +23,9 @@ def is_stream_source(src: str) -> bool:
     return src.startswith(("rtmp://", "rtsp://", "http://", "https://"))
 
 
-def create_stream_input_command(src: Path):
+def create_stream_input_command(src: str):
     return ["ffmpeg", "-loglevel", "error", "-fflags", "nobuffer", "-flags", "low_delay", "-vsync", "drop", "-i",
-            str(src), "-f", "rawvideo", "-pix_fmt", "bgr24", "-", ]
+            src, "-f", "rawvideo", "-pix_fmt", "bgr24", "-", ]
 
 
 def create_file_input_command(src: Path):
@@ -35,8 +35,8 @@ def create_file_input_command(src: Path):
 def create_hls_output_command(width: int, height: int, hls_dir: Path) -> List[str]:
     return ["ffmpeg", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{width}x{height}", "-r", "15", "-i", "-",
             "-c:v", "libx264", "-preset", "ultrafast", "-tune", "zerolatency", "-pix_fmt", "yuv420p", "-f", "hls",
-            "-hls_time", "2", "-hls_list_size", "5", "-hls_flags", "delete_segments+append_list",
-            str(hls_dir.resolve() / "index.m3u8"), ]
+            "-hls_time", "2", "-hls_list_size", "10", "-hls_flags", "delete_segments+append_list",
+            str(hls_dir.resolve()), ]
 
 
 def create_h264_output_command(width: int, height: int, save_path: Path) -> List[str]:

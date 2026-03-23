@@ -22,21 +22,21 @@ def change_detection_video_status(detection_video_id: int, status: TaskStatus):
 @shared_task(ignore_result=False)
 def create_detect_task(src: str, dest: str, selected_model: str, detection_video_id: int | None = None):
     current_app.logger.info(f"Start detecting videos: {src}")
-    if detection_video_id:
-        current_app.logger.info(f"Detection video id: {detection_video_id}")
 
     if detection_video_id:
+        current_app.logger.info(f"Detection video id: {detection_video_id}")
         change_detection_video_status(detection_video_id, TaskStatus.STARTED)
 
     try:
-        src_path = Path(src)
         dest_path = Path(dest)
 
-        if is_stream_source(str(src_path)):
-            input_cmd = create_stream_input_command(src_path)
-            width, height = probe_video_resolution(str(src_path))
+        if is_stream_source(src):
+            input_cmd = create_stream_input_command(src)
+            width, height = probe_video_resolution(src)
             output_cmd = create_hls_output_command(width, height, dest_path)
         else:
+            src_path = Path(src)
+
             input_cmd = create_file_input_command(src_path)
             width, height = probe_video_resolution(str(src_path))
             output_cmd = create_h264_output_command(width, height, dest_path)
