@@ -5,7 +5,7 @@ from pathlib import Path
 from flask import Blueprint, jsonify, current_app, abort, render_template, send_from_directory, redirect, url_for, \
     request
 
-from domains.stream.forms import UserStreamDeleteForm
+from src.domains.stream.forms import UserStreamDeleteForm
 from src.domains.stream.forms import UserStreamForm
 from src.domains.stream.models import UserStream
 from src.main import db

@@ -42,9 +42,9 @@ def create_detect_task(src: str, dest: str, selected_model: str, detection_video
             output_cmd = create_h264_output_command(width, height, dest_path)
 
         detector = video_detector_models[VideoDetectorEnum(selected_model)]()
-        detector.detect(input_cmd, output_cmd, width, height, detection_video_id, conf=0.5, verbose=False)
+        detector.detect(input_cmd, output_cmd, width, height, detection_video_id, conf=0.2, verbose=False)
 
-        current_app.logger.info(f"End detecting videos: {src_path}")
+        current_app.logger.info(f"End detecting videos: {src}")
         if detection_video_id:
             change_detection_video_status(detection_video_id, TaskStatus.SUCCESS)
     except Exception as e:
