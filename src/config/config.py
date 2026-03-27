@@ -41,6 +41,7 @@ class ProductionConfig(BaseConfig):
     SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT")
     UPLOAD_FOLDER = str(Path(basedir, os.environ.get("UPLOAD_FOLDER", "uploads")))
     MODELS_FOLDER = str(Path(basedir, os.environ.get("MODELS_FOLDER", "models")))
+    STREAM_FOLDER = str(Path(basedir, os.environ.get("STREAM_FOLDER", "streams")))
 
     CELERY = dict(
         broker_url=os.environ.get("CELERY_BROKER_URL"),
