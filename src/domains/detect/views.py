@@ -3,45 +3,18 @@ from pathlib import Path
 from typing import List
 
 import cv2
-from celery import shared_task
-from flask import (
-    Blueprint,
-    current_app,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    send_from_directory,
-    url_for,
-)
+from flask import (Blueprint, current_app, jsonify, redirect, render_template, request, send_from_directory, url_for, )
 from flask_login import current_user, login_required
 from ultralytics.engine.results import Results
 
-from src.domains.detect.detector import (
-    ImageDetectorEnum,
-    VideoDetectorEnum,
-    image_detector_models,
-    video_detector_models,
-)
-from src.domains.detect.forms import (
-    DeleteImageForm,
-    DetectImageForm,
-    DetectVideoForm,
-    UploadImageForm,
-    UploadVideoForm,
-)
-from src.domains.detect.models import (
-    DetectionImage,
-    DetectionVideo,
-    TaskStatus,
-    UserImage,
-    UserVideo,
-)
+from src.domains.detect.forms import (DeleteImageForm, DetectImageForm, DetectVideoForm, UploadImageForm,
+                                      UploadVideoForm, )
+from src.domains.detect.models import (DetectionImage, DetectionVideo, UserImage, UserVideo, )
 from src.main import db
+from src.utils.detector import (ImageDetectorEnum, VideoDetectorEnum, image_detector_models, )
+from src.utils.task_manager import create_detect_task
 
-detect_views = Blueprint(
-    "detect", __name__, template_folder="templates", static_folder="static"
-)
+detect_views = Blueprint("detect", __name__, template_folder="templates", static_folder="static")
 
 
 @detect_views.get("/images")
@@ -49,18 +22,12 @@ def image_dashboard():
     user_images: List[UserImage] = UserImage.query.order_by(UserImage.id.desc()).all()
     delete_form = DeleteImageForm()
 
-    return render_template(
-        "detect/image_dashboard.html",
-        user_images=user_images,
-        delete_form=delete_form,
-    )
+    return render_template("detect/image_dashboard.html", user_images=user_images, delete_form=delete_form, )
 
 
 @detect_views.get("/images/<path:filename>")
 def images(filename: str):
-    return send_from_directory(
-        Path(current_app.config["UPLOAD_FOLDER"], "images"), filename
-    )
+    return send_from_directory(Path(current_app.config["UPLOAD_FOLDER"], "images"), filename)
 
 
 @detect_views.get("/images/<int:image_id>/status")
@@ -68,11 +35,8 @@ def image_status(image_id: int):
     model = request.args.get("model")
 
     detection_image: DetectionImage | None = (
-        DetectionImage.query.filter(DetectionImage.user_image_id == image_id)
-        .filter(DetectionImage.model == model)
-        .order_by(DetectionImage.id.desc())
-        .first()
-    )
+        DetectionImage.query.filter(DetectionImage.user_image_id == image_id).filter(
+            DetectionImage.model == model).order_by(DetectionImage.id.desc()).first())
 
     if detection_image is None:
         return jsonify({"status": "NONE"})
@@ -91,9 +55,7 @@ def upload_image():
 
         ext = Path(file.filename).suffix
         image_uuid_file_name = str(uuid.uuid4()) + ext
-        image_path = Path(
-            current_app.config["UPLOAD_FOLDER"], "images", image_uuid_file_name
-        )
+        image_path = Path(current_app.config["UPLOAD_FOLDER"], "images", image_uuid_file_name)
         file.save(image_path)
 
         user_image = UserImage(user_id=current_user.id, image_path=image_uuid_file_name)
@@ -102,12 +64,7 @@ def upload_image():
 
         return redirect(url_for("detect.image_dashboard"))
     images = UserImage.query.order_by(UserImage.id.desc()).all()
-    return render_template(
-        "detect/upload_images.html",
-        form=form,
-        delete_form=delete_form,
-        images=images,
-    )
+    return render_template("detect/upload_images.html", form=form, delete_form=delete_form, images=images, )
 
 
 @detect_views.post("/images/<int:image_id>/delete")
@@ -134,9 +91,7 @@ def delete_selected_images():
 def delete_images(delete_ids: List[int]):
     images_folder = Path(current_app.config["UPLOAD_FOLDER"], "images")
 
-    detection_images = DetectionImage.query.filter(
-        DetectionImage.user_image_id.in_(delete_ids)
-    ).all()
+    detection_images = DetectionImage.query.filter(DetectionImage.user_image_id.in_(delete_ids)).all()
     for detection_image in detection_images:
         path = images_folder / detection_image.image_path
         if path.exists():
@@ -175,11 +130,7 @@ def image_detail(image_id: int):
         results[0].save(str(base / dest))
         current_app.logger.info(f"File saved: {str(base / dest)}")
 
-        detection_image = DetectionImage(
-            model=selected_model,
-            image_path=dest,
-            user_image=user_image,
-        )
+        detection_image = DetectionImage(model=selected_model, image_path=dest, user_image=user_image, )
         db.session.add(detection_image)
         db.session.commit()
 
@@ -193,18 +144,12 @@ def video_dashboard():
     user_videos: List[UserVideo] = UserVideo.query.order_by(UserVideo.id.desc()).all()
     delete_form = DeleteImageForm()
 
-    return render_template(
-        "detect/video_dashboard.html",
-        user_videos=user_videos,
-        delete_form=delete_form,
-    )
+    return render_template("detect/video_dashboard.html", user_videos=user_videos, delete_form=delete_form, )
 
 
 @detect_views.get("/videos/<path:filename>")
 def videos(filename: str):
-    return send_from_directory(
-        Path(current_app.config["UPLOAD_FOLDER"], "videos"), filename
-    )
+    return send_from_directory(Path(current_app.config["UPLOAD_FOLDER"], "videos"), filename)
 
 
 @detect_views.post("/videos/task")
@@ -221,29 +166,19 @@ def check_task():
         return jsonify({"error": "Missing 'video_id' or 'model'"}), 400
 
     detection_video: DetectionVideo | None = (
-        DetectionVideo.query.filter_by(user_video_id=video_id)
-        .filter_by(model=model)
-        .order_by(DetectionVideo.id.desc())
-        .first()
-    )
+        DetectionVideo.query.filter_by(user_video_id=video_id).filter_by(model=model).order_by(
+            DetectionVideo.id.desc()).first())
 
     if detection_video is None:
         return jsonify({"status": "NONE"})
     else:
-        return jsonify(
-            {
-                "detection_video_id": detection_video.id,
-                "video_path": detection_video.video_path,
-                "status": detection_video.status.value,
-            }
-        )
+        return jsonify({"detection_video_id": detection_video.id, "video_path": detection_video.video_path,
+                        "status": detection_video.status.value, })
 
 
 @detect_views.get("/videos/thumbnail/<path:thumbnail>")
 def thumbnails(thumbnail: str):
-    return send_from_directory(
-        Path(current_app.config["UPLOAD_FOLDER"], "videos"), thumbnail
-    )
+    return send_from_directory(Path(current_app.config["UPLOAD_FOLDER"], "videos"), thumbnail)
 
 
 @detect_views.route("/upload/videos", methods=["GET", "POST"])
@@ -256,18 +191,13 @@ def upload_video():
 
         ext = Path(file.filename).suffix
         video_uuid_file_name = str(uuid.uuid4()) + ext
-        video_path = Path(
-            current_app.config["UPLOAD_FOLDER"], "videos", video_uuid_file_name
-        )
+        video_path = Path(current_app.config["UPLOAD_FOLDER"], "videos", video_uuid_file_name)
         file.save(video_path)
 
         thumbnail_path = extract_thumbnail(video_path)
 
-        user_video = UserVideo(
-            user_id=current_user.id,
-            video_path=video_uuid_file_name,
-            thumbnail_path=thumbnail_path,
-        )
+        user_video = UserVideo(user_id=current_user.id, video_path=video_uuid_file_name,
+                               thumbnail_path=thumbnail_path, )
         db.session.add(user_video)
         db.session.commit()
 
@@ -292,8 +222,7 @@ def delete_videos(delete_ids: List[int]):
     videos_folder = Path(current_app.config["UPLOAD_FOLDER"], "videos")
 
     detection_videos: List[DetectionVideo] = DetectionVideo.query.filter(
-        DetectionVideo.user_video_id.in_(delete_ids)
-    ).all()
+        DetectionVideo.user_video_id.in_(delete_ids)).all()
     for detection_video in detection_videos:
         path = videos_folder / detection_video.video_path
         if path.exists():
@@ -301,9 +230,7 @@ def delete_videos(delete_ids: List[int]):
 
         db.session.delete(detection_video)
 
-    user_videos: List[UserVideo] = UserVideo.query.filter(
-        UserVideo.id.in_(delete_ids)
-    ).all()
+    user_videos: List[UserVideo] = UserVideo.query.filter(UserVideo.id.in_(delete_ids)).all()
     for user_video in user_videos:
         video_path = videos_folder / user_video.video_path
         if video_path.exists():
@@ -331,30 +258,17 @@ def video_detail(video_id: int):
 
         dest = str(uuid.uuid4())
 
-        detection_video = DetectionVideo(
-            model=selected_model,
-            video_path=f"{dest}.mp4",
-            user_video=user_video,
-        )
+        detection_video = DetectionVideo(model=selected_model, video_path=f"{dest}.mp4", user_video=user_video, )
         db.session.add(detection_video)
         db.session.commit()
 
-        result = detect_videos.delay(
-            str(Path(current_app.config["UPLOAD_FOLDER"], "videos")),
-            str(user_video.video_path),
-            dest,
-            selected_model,
-            detection_video.id,
-        )
+        src_path = Path(current_app.config["UPLOAD_FOLDER"], "videos", str(user_video.video_path))
+        dest_path = Path(current_app.config["UPLOAD_FOLDER"], "videos", f"{dest}.mp4")
+        result = create_detect_task.delay(str(src_path), str(dest_path), selected_model, detection_video.id)
         current_app.logger.info(f"Task 추가: {result.id}")
 
-        return jsonify(
-            {
-                "detection_video_id": detection_video.id,
-                "video_path": detection_video.video_path,
-                "status": detection_video.status.value,
-            }
-        )
+        return jsonify({"detection_video_id": detection_video.id, "video_path": detection_video.video_path,
+                        "status": detection_video.status.value, })
 
     return render_template("detect/video_detail.html", user_video=user_video, form=form)
 
@@ -375,38 +289,3 @@ def extract_thumbnail(video_path: Path) -> str | None:
 
     cap.release()
     return thumbnail_name
-
-
-@shared_task(ignore_result=False)
-def detect_videos(
-    base: str, src: str, dest_name: str, selected_model: str, detection_video_id: int
-):
-    current_app.logger.info(f"Detecting videos: {src}")
-
-    detection_video: DetectionVideo | None = DetectionVideo.query.get(
-        detection_video_id
-    )
-    if detection_video:
-        detection_video.status = TaskStatus.STARTED
-        db.session.commit()
-
-    try:
-        base_path: Path = Path(base)
-
-        detector = video_detector_models[VideoDetectorEnum(selected_model)]()
-        detector.detect(
-            base_path / src, base_path / f"{dest_name}.mp4", conf=0.5, verbose=False
-        )
-
-        current_app.logger.info(f"End detecting videos: {dest_name}.mp4")
-
-        if detection_video:
-            detection_video.status = TaskStatus.SUCCESS
-            db.session.commit()
-    except Exception as e:
-        current_app.logger.error(f"End detecting videos: {e}")
-        if detection_video:
-            detection_video.status = TaskStatus.FAILURE
-            db.session.commit()
-
-    return dest_name

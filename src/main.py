@@ -47,16 +47,19 @@ def create_app(env: str = "development") -> Flask:
     # from src.domains.auth.views import auth_views
     from src.domains.detect.views import detect_views
     from src.domains.root.views import root_views
+    from src.domains.stream.views import stream_views
 
     app.register_blueprint(root_views, url_prefix="/")
     # app.register_blueprint(user_views, url_prefix="/user")
     # app.register_blueprint(auth_views, url_prefix="/auth")
     app.register_blueprint(detect_views, url_prefix="/detect")
+    app.register_blueprint(stream_views, url_prefix="/stream")
 
     init_folder(Path(app.config["UPLOAD_FOLDER"]))
     init_folder(Path(app.config["UPLOAD_FOLDER"]) / "images")
     init_folder(Path(app.config["UPLOAD_FOLDER"]) / "videos")
     init_folder(Path(app.config["MODELS_FOLDER"]))
+    init_folder(Path(app.config["STREAM_FOLDER"]))
 
     return app
 

@@ -1,11 +1,11 @@
 from enum import Enum
 
-from src.domains.detect.detector.image_detector import (
+from src.utils.detector.image_detector import (
     BaseImageDetector,
     ImageDetectorYOLO11n,
     ImageDetectorFireDetectV1,
 )
-from src.domains.detect.detector.video_detector import (
+from src.utils.detector.video_detector import (
     VideoDetectorFireDetectV1,
     BaseVideoDetector,
     VideoDetectorYolo11n,
